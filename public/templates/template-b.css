@@ -1,0 +1,15 @@
+.template-b {
+  --bg-color: #050510;
+  --text-color: #e0e0ff;
+  --box-color: #0b0b22;
+  --border-color: #00ffff;
+  --primary-color: #00ffff;
+  --success-color: #00ff99;
+  --font-family: "Orbitron", sans-serif;
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
+}

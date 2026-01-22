@@ -1,0 +1,14 @@
+.template-e {
+  --bg-color: #000000;
+  --text-color: #ffffff;
+  --box-color: #1a1a1a;
+  --border-color: #ff0000;
+  --primary-color: #ff0000;
+  --success-color: #00ff00;
+  --font-family: Impact, sans-serif;
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+}

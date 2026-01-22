@@ -1,0 +1,14 @@
+.template-c {
+  --bg-color: #fff5f7;
+  --text-color: #4a1d2f;
+  --box-color: #ffe4ec;
+  --border-color: #f9a8d4;
+  --primary-color: #db2777;
+  --success-color: #16a34a;
+  --font-family: "Georgia", serif;
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+}

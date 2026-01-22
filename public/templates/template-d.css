@@ -1,0 +1,14 @@
+.template-d {
+  --bg-color: #0a0a0a;
+  --text-color: #f5f5f5;
+  --box-color: #141414;
+  --border-color: #333;
+  --primary-color: #ff9800;
+  --success-color: #4caf50;
+  --font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+}
