@@ -1,56 +1,54 @@
-'use server';
-
-import { supabaseServer } from '@/lib/supabaseServer';
+import { supabaseServer } from './supabase/supabaseServer'
 
 export async function getCredits() {
-  const supabase = supabaseServer();
-  const { data: user } = await supabase.auth.getUser();
+  const supabase = supabaseServer()
 
-  if (!user || !user.user) {
-    return 0;
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  if (!user) {
+    throw new Error('Usuário não autenticado')
   }
 
   const { data, error } = await supabase
     .from('user_credits')
-    .select('balance')
-    .eq('user_id', user.user.id)
-    .single();
+    .select('total, used, remaining')
+    .eq('user_id', user.id)
+    .single()
 
-  if (error || !data) {
-    return 0;
+  if (error) {
+    throw new Error('Erro ao buscar créditos')
   }
 
-  return data.balance;
+  return data
 }
 
-export async function consumeCredits(amount: number) {
-  const supabase = supabaseServer();
-  const { data: user } = await supabase.auth.getUser();
+export async function canUseCredits(cost: number) {
+  const credits = await getCredits()
+  return credits.remaining >= cost
+}
 
-  if (!user || !user.user) {
-    throw new Error('Usuário não autenticado');
+export async function consumeCredits(cost: number, reason: string) {
+  const supabase = supabaseServer()
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  if (!user) {
+    throw new Error('Usuário não autenticado')
   }
 
-  const { data, error } = await supabase
-    .from('user_credits')
-    .select('balance')
-    .eq('user_id', user.user.id)
-    .single();
+  const { error } = await supabase.rpc('consume_credits', {
+    p_user_id: user.id,
+    p_cost: cost,
+    p_reason: reason,
+  })
 
-  if (error || !data) {
-    throw new Error('Créditos não encontrados');
+  if (error) {
+    throw new Error('Erro ao consumir créditos')
   }
 
-  if (data.balance < amount) {
-    throw new Error('Créditos insuficientes');
-  }
-
-  const newBalance = data.balance - amount;
-
-  await supabase
-    .from('user_credits')
-    .update({ balance: newBalance })
-    .eq('user_id', user.user.id);
-
-  return newBalance;
+  return true
 }
