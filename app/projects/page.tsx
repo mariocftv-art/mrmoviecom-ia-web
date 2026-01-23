@@ -1,42 +1,64 @@
-import { listProjectsByUser } from '@/lib/projects'
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
-
-export default async function ProjectsPage() {
-  const supabase = createServerComponentClient({ cookies })
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
-  if (!user) {
-    return <p>Você precisa estar logado.</p>
-  }
-
-  const projects = await listProjectsByUser(user.id)
+export default function ProjectsPage() {
+  const projects = [
+    {
+      id: "p1",
+      name: "Vídeo institucional imobiliária",
+      status: "ok",
+      phase: "closed",
+    },
+    {
+      id: "p2",
+      name: "Projeto importado do Lovable",
+      status: "ok",
+      phase: "execution",
+    },
+  ]
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">Meus Projetos</h1>
+    <div style={{ maxWidth: 900 }}>
+      <h1>Projetos</h1>
+      <p style={{ opacity: 0.7 }}>
+        Acompanhe e retome seus projetos
+      </p>
 
-      {projects.length === 0 ? (
-        <p>Nenhum projeto encontrado.</p>
-      ) : (
-        <ul className="space-y-4">
-          {projects.map((project) => (
-            <li key={project.id} className="border rounded p-4">
+      <div style={{ marginTop: 24, display: "grid", gap: 16 }}>
+        {projects.map((project) => (
+          <div
+            key={project.id}
+            style={{
+              padding: 16,
+              borderRadius: 12,
+              background: "#111",
+              border: "1px solid #222",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <div>
               <strong>{project.name}</strong>
-              <p>Progresso: {project.progress}%</p>
+              <div style={{ fontSize: 14, opacity: 0.7, marginTop: 4 }}>
+                Fase: {project.phase}
+              </div>
+            </div>
 
-              {project.is_locked && (
-                <span className="text-red-600 font-semibold">
-                  Projeto travado
-                </span>
-              )}
-            </li>
-          ))}
-        </ul>
-      )}
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <span
+                style={{
+                  width: 10,
+                  height: 10,
+                  borderRadius: "50%",
+                  background:
+                    project.status === "ok" ? "#22c55e" : "#ef4444",
+                }}
+              />
+              <span style={{ color: "#7c7cff", fontSize: 14 }}>
+                Abrir →
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

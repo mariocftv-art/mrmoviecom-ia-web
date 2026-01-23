@@ -1,35 +1,53 @@
-import Image from "next/image";
+"use client"
 
-export default function Home() {
+import { useState } from "react"
+import { runAdminAction } from "./actions"
+
+export default function AdminPage() {
+  const [input, setInput] = useState("")
+  const [result, setResult] = useState<any>(null)
+  const [loading, setLoading] = useState(false)
+
+  async function handleRun() {
+    setLoading(true)
+    setResult(null)
+
+    const res = await runAdminAction(input)
+    setResult(res)
+
+    setLoading(false)
+  }
+
   return (
-    <main className="min-h-screen w-full flex items-center justify-center bg-black text-white">
-      <div className="max-w-2xl w-full p-6">
-        <h1 className="text-3xl font-bold">
-          O que você quer fazer agora?
-        </h1>
+    <div style={{ padding: 24, maxWidth: 800 }}>
+      <h1>Painel Admin — MRMoviecom IA</h1>
 
-        <p className="mt-3 text-zinc-400">
-          Escolha como deseja continuar seu projeto na MRMoviecomIA Platform.
-        </p>
+      <textarea
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        placeholder="Descreva o que deseja executar"
+        rows={6}
+        style={{ width: "100%", marginTop: 12 }}
+      />
 
-        <div className="mt-8 flex flex-col gap-4">
-          <button className="w-full rounded-lg bg-zinc-900 p-4 text-left hover:bg-zinc-800">
-            Continuar um projeto de outra plataforma
-          </button>
+      <button
+        onClick={handleRun}
+        disabled={loading}
+        style={{ marginTop: 12 }}
+      >
+        {loading ? "Executando..." : "Executar"}
+      </button>
 
-          <button className="w-full rounded-lg bg-zinc-900 p-4 text-left hover:bg-zinc-800">
-            Iniciar um novo projeto do zero
-          </button>
+      {result && (
+        <div style={{ marginTop: 20 }}>
+          <h3>Status: {result.status}</h3>
+          <p>Fase atual: {result.phase}</p>
 
-          <button className="w-full rounded-lg bg-zinc-900 p-4 text-left hover:bg-zinc-800">
-            Explorar módulos disponíveis
-          </button>
+          <pre style={{ background: "#111", color: "#0f0", padding: 12 }}>
+            {JSON.stringify(result.output, null, 2)}
+          </pre>
         </div>
-
-        <p className="mt-10 text-xs text-zinc-500">
-          Seu projeto é sempre seu. Nada é feito sem sua autorização.
-        </p>
-      </div>
-    </main>
+      )}
+    </div>
   )
 }
