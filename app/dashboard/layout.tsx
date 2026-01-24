@@ -4,8 +4,7 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (
-    <div style={{ padding: 40 }}>
-      <h1>Dashboard Layout OK</h1>
+    <div style={{ minHeight: '100vh' }}>
       {children}
     </div>
   )
