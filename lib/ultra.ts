@@ -1,4 +1,4 @@
-import { createServerSupabase } from '@/lib/supabase/server'
+import { createServerSupabase } from '@/lib/_supabase_disabled/server'
 
 export async function isUltraEmail(email: string) {
   const supabase = await createServerSupabase()

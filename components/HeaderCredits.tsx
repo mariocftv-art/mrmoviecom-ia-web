@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/supabaseClient'
-import { getCreditsOrCreate } from '@/lib/supabase/credits'
+import { getCreditsOrCreate } from '@/lib/_supabase_disabled/credits'
 
 export default async function HeaderCredits() {
   const supabase = createClient()

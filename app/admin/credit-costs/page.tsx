@@ -1,6 +1,6 @@
 'use client'
 
-import { supabase } from '@/lib/supabase/browserClient'
+import { supabase } from '@/lib/_supabase_disabled/browserClient'
 import { useEffect, useState } from 'react'
 
 type CreditCost = {
