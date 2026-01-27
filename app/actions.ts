@@ -1,15 +1,15 @@
-"use server"
+"use server";
 
-import { Orchestrator } from "@/lib/orchestrator"
+import { runOrchestrator } from "@/lib/orchestrator";
 
 export async function runAdminAction(input: string) {
-  const orchestrator = new Orchestrator()
+  if (!input || input.trim().length === 0) {
+    return {
+      error: "Input vazio",
+    };
+  }
 
-  const result = await orchestrator.run({
-    projectId: "admin-project",
-    projectName: "Admin MVP Project",
-    userInput: input
-  })
+  const result = await runOrchestrator(input);
 
-  return result
+  return result;
 }
