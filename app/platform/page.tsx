@@ -1,31 +1,33 @@
-// app/platform/page.tsx
+'use client';
 
-import { Orchestrator } from "@/lib/core/orchestrator/orchestrator";
+import PlatformNav from '@/components/PlatformNav';
 
-export default async function PlatformPage() {
-  const orchestrator = new Orchestrator(
-    "analisar e executar tarefa de teste"
-  );
-
-  await orchestrator.start();
-  const context = orchestrator.getContext();
-
+export default function PlatformPage() {
   return (
-    <main style={{ padding: 20 }}>
+    <div style={{ padding: 24 }}>
+      <PlatformNav />
+
       <h1>MRMoviecom IA Platform</h1>
 
-      <p><b>Status:</b> {context.state}</p>
-      <p><b>Objetivo:</b> {context.goal}</p>
-      <p><b>Confiança:</b> {context.confidence}</p>
+      <p>Status: <strong>Plataforma ativa</strong></p>
 
-      <h2>Passos</h2>
-      <ul>
-        {context.steps.map((step, i) => (
-          <li key={i}>
-            {step.id} - {step.description} ({step.risk})
-          </li>
-        ))}
-      </ul>
-    </main>
+      <section style={{ marginTop: 24 }}>
+        <h2>Bem-vindo</h2>
+        <p>
+          Esta é a área central da MRMoviecom IA Platform.
+          A partir daqui você pode criar projetos, gerenciar suas IAs
+          e acessar os recursos disponíveis.
+        </p>
+      </section>
+
+      <section style={{ marginTop: 24 }}>
+        <ul>
+          <li>✔ Criar novos projetos</li>
+          <li>✔ Gerenciar Minhas IAs</li>
+          <li>✔ Acessar templates</li>
+          <li>✔ Evoluir para módulos futuros</li>
+        </ul>
+      </section>
+    </div>
   );
 }

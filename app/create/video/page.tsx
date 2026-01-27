@@ -1,66 +1,46 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
-import Link from 'next/link';
+import PlatformNav from '@/components/PlatformNav';
 
-export default function CreateProjectPage() {
-  const params = useSearchParams();
-  const template = params.get('template') ?? 'custom';
-
+export default function CreatePage() {
   return (
-    <main style={{ padding: 32, maxWidth: 900, margin: '0 auto' }}>
+    <div style={{ padding: 24 }}>
+      <PlatformNav />
+
       <h1>Criar Projeto</h1>
-      <p>Template selecionado: <b>{template}</b></p>
 
-      <section style={{ marginTop: 24 }}>
-        <label style={{ display: 'block', marginBottom: 12 }}>
-          Nome do projeto
+      <p>Inicie um novo projeto com IA.</p>
+
+      <form style={{ marginTop: 24 }}>
+        <div style={{ marginBottom: 12 }}>
+          <label>Nome do Projeto</label><br />
           <input
-            placeholder="Ex: Vídeo viral para TikTok"
-            style={input}
+            placeholder="Ex: Vídeo viral TikTok"
+            style={{ padding: 8, width: '100%' }}
           />
-        </label>
+        </div>
 
-        <label style={{ display: 'block', marginBottom: 12 }}>
-          Objetivo
+        <div style={{ marginBottom: 12 }}>
+          <label>Objetivo</label><br />
           <textarea
             placeholder="Descreva o que a IA deve fazer"
-            style={{ ...input, height: 120 }}
+            style={{ padding: 8, width: '100%', height: 100 }}
           />
-        </label>
-
-        <div style={{ display: 'flex', gap: 12, marginTop: 16 }}>
-          <button style={btnPrimary}>Criar Projeto</button>
-          <Link href="/platform">
-            <button style={btnSecondary}>Cancelar</button>
-          </Link>
         </div>
-      </section>
-    </main>
+
+        <button
+          type="button"
+          style={{
+            padding: '10px 16px',
+            background: '#4f46e5',
+            color: '#fff',
+            border: 'none',
+            borderRadius: 6
+          }}
+        >
+          Criar
+        </button>
+      </form>
+    </div>
   );
 }
-
-const input = {
-  width: '100%',
-  padding: 12,
-  marginTop: 6,
-  borderRadius: 8,
-  border: '1px solid #ccc'
-};
-
-const btnPrimary = {
-  padding: '10px 16px',
-  borderRadius: 8,
-  border: 'none',
-  background: '#4f46e5',
-  color: '#fff',
-  cursor: 'pointer'
-};
-
-const btnSecondary = {
-  padding: '10px 16px',
-  borderRadius: 8,
-  border: '1px solid #ccc',
-  background: '#fff',
-  cursor: 'pointer'
-};
