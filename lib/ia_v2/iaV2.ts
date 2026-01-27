@@ -1,36 +1,36 @@
-import { webSearch } from "./tools/webSearch";
+import { Brain } from "./brain";
 import { Memory } from "./memory";
 import { Learner } from "./learner";
 
-export type IAState = "idle" | "thinking" | "acting" | "learning";
-
 export class IAV2 {
-  state: IAState = "idle";
-  memory: Memory;
-  learner: Learner;
+  private brain: Brain;
+  private memory: Memory;
+  private learner: Learner;
 
   constructor() {
+    this.brain = new Brain();
     this.memory = new Memory();
     this.learner = new Learner();
   }
 
   async run(goal: string): Promise<string> {
-    this.state = "thinking";
+    this.brain.set("thinking");
 
     const known = this.memory.recall(goal);
     if (known) {
-      this.state = "acting";
+      this.brain.set("acting");
       return known;
     }
 
-    this.state = "acting";
+    this.brain.set("acting");
+    const { webSearch } = await import("./tools/webSearch");
     const result = await webSearch(goal);
 
-    this.state = "learning";
+    this.brain.set("learning");
     this.memory.store(goal, result);
     this.learner.learn(goal, result);
 
-    this.state = "idle";
+    this.brain.set("idle");
     return result;
   }
 }

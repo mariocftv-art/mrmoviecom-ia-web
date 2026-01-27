@@ -1,13 +1,17 @@
-import { iaV2 } from "./index";
+export type IAState =
+  | "idle"
+  | "thinking"
+  | "acting"
+  | "learning";
 
-export async function runIAV2Loop(goal: string, cycles = 1) {
-  let result = "";
+export class Brain {
+  state: IAState = "idle";
 
-  for (let i = 0; i < cycles; i++) {
-    console.log(`[IA V2] Ciclo ${i + 1} iniciado`);
-    result = await iaV2.run(goal);
-    console.log(`[IA V2] Resultado:`, result);
+  set(state: IAState) {
+    this.state = state;
   }
 
-  return result;
+  get(): IAState {
+    return this.state;
+  }
 }
