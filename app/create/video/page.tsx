@@ -1,125 +1,66 @@
-"use client"
+'use client';
 
-import { useState } from "react"
+import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
-export default function CreateVideoPage() {
-  const [input, setInput] = useState("")
-  const [result, setResult] = useState<any>(null)
-  const [loading, setLoading] = useState(false)
-
-  async function handleRun() {
-    setLoading(true)
-    setResult(null)
-
-    const res = await fetch("/admin/api/run", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ input }),
-    })
-
-    const data = await res.json()
-    setResult(data)
-
-    setLoading(false)
-  }
+export default function CreateProjectPage() {
+  const params = useSearchParams();
+  const template = params.get('template') ?? 'custom';
 
   return (
-    <div style={{ maxWidth: 720 }}>
-      {/* Título */}
-      <h1>Criar Vídeo com IA</h1>
-      <p style={{ opacity: 0.7 }}>
-        Descreva o vídeo que você deseja criar
-      </p>
+    <main style={{ padding: 32, maxWidth: 900, margin: '0 auto' }}>
+      <h1>Criar Projeto</h1>
+      <p>Template selecionado: <b>{template}</b></p>
 
-      {/* Input */}
-      <textarea
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        placeholder="Ex: Vídeo institucional para imobiliária, 30 segundos"
-        rows={6}
-        style={{
-          width: "100%",
-          marginTop: 16,
-          padding: 12,
-          borderRadius: 8,
-        }}
-      />
+      <section style={{ marginTop: 24 }}>
+        <label style={{ display: 'block', marginBottom: 12 }}>
+          Nome do projeto
+          <input
+            placeholder="Ex: Vídeo viral para TikTok"
+            style={input}
+          />
+        </label>
 
-      {/* Botão */}
-      <button
-        onClick={handleRun}
-        disabled={loading}
-        style={{
-          marginTop: 16,
-          padding: "10px 18px",
-          borderRadius: 8,
-          background: "#4f46e5",
-          color: "#fff",
-          border: "none",
-          cursor: "pointer",
-        }}
-      >
-        {loading ? "Executando..." : "Executar"}
-      </button>
+        <label style={{ display: 'block', marginBottom: 12 }}>
+          Objetivo
+          <textarea
+            placeholder="Descreva o que a IA deve fazer"
+            style={{ ...input, height: 120 }}
+          />
+        </label>
 
-      {/* STATUS VISUAL */}
-      {result && (
-        <div
-          style={{
-            marginTop: 32,
-            padding: 20,
-            borderRadius: 12,
-            background: "#111",
-            border: "1px solid #222",
-          }}
-        >
-          {/* Status */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 8,
-              marginBottom: 12,
-            }}
-          >
-            <span
-              style={{
-                width: 10,
-                height: 10,
-                borderRadius: "50%",
-                background:
-                  result.execution?.status === "ok" ? "#22c55e" : "#ef4444",
-              }}
-            />
-            <strong>
-              Status: {result.execution?.status?.toUpperCase()}
-            </strong>
-          </div>
-
-          {/* Fase */}
-          <p style={{ opacity: 0.8 }}>
-            <strong>Fase atual:</strong>{" "}
-            {result.context?.currentPhase ?? "—"}
-          </p>
-
-          {/* Resumo */}
-          <div style={{ marginTop: 12 }}>
-            <strong>Resumo do pedido:</strong>
-            <div
-              style={{
-                marginTop: 8,
-                padding: 12,
-                borderRadius: 8,
-                background: "#181818",
-                fontSize: 14,
-                opacity: 0.9,
-              }}
-            >
-              {input}
-            </div>
-          </div>
+        <div style={{ display: 'flex', gap: 12, marginTop: 16 }}>
+          <button style={btnPrimary}>Criar Projeto</button>
+          <Link href="/platform">
+            <button style={btnSecondary}>Cancelar</button>
+          </Link>
         </div>
-      )}
-    </div>
-  )
+      </section>
+    </main>
+  );
 }
+
+const input = {
+  width: '100%',
+  padding: 12,
+  marginTop: 6,
+  borderRadius: 8,
+  border: '1px solid #ccc'
+};
+
+const btnPrimary = {
+  padding: '10px 16px',
+  borderRadius: 8,
+  border: 'none',
+  background: '#4f46e5',
+  color: '#fff',
+  cursor: 'pointer'
+};
+
+const btnSecondary = {
+  padding: '10px 16px',
+  borderRadius: 8,
+  border: '1px solid #ccc',
+  background: '#fff',
+  cursor: 'pointer'
+};
