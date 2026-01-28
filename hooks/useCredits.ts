@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { supabase } from '@/lib/_supabase_disabled/browserClient'
+import { supabase } from '@/supabase/browserClient'
 
 export function useCredits() {
   const [credits, setCredits] = useState<number>(0)
