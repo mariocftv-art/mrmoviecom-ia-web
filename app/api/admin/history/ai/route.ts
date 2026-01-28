@@ -1,25 +1,24 @@
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-  const { prompt } = await req.json();
+  try {
+    const body = await req.json();
 
-  // Resposta simulada da IA (por enquanto)
-  const response = {
-    status: "ok",
-    fase: "VISÃO",
-    mensagem: `
-Entendi sua intenção.
+    const userPrompt = body?.prompt || "";
 
-Você quer criar uma plataforma SaaS com IA capaz de analisar,
-replicar e finalizar projetos digitais de forma inteligente.
-
-Isso é um projeto de ALTO NÍVEL, com potencial de mercado real.
-
-Próximo passo:
-Definir quais tipos de projetos essa IA vai copiar primeiro
-(sites, apps, SaaS, automações ou todos).
-    `.trim(),
-  };
-
-  return NextResponse.json(response);
+    return NextResponse.json({
+      status: "ok",
+      fase: "Análise inicial",
+      mensagem: `Recebi o pedido: "${userPrompt}". Próximo passo: estruturar a visão da plataforma SaaS com IA.`,
+    });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        status: "erro",
+        fase: "Falha",
+        mensagem: "Erro ao processar a solicitação da IA.",
+      },
+      { status: 500 }
+    );
+  }
 }
