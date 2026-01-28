@@ -4,64 +4,51 @@ import { useState } from "react";
 
 export default function AdminPage() {
   const [prompt, setPrompt] = useState("");
-  const [status, setStatus] = useState("");
-  const [fase, setFase] = useState("");
-  const [mensagem, setMensagem] = useState("");
+  const [status, setStatus] = useState<string | null>(null);
+  const [fase, setFase] = useState<string | null>(null);
 
   async function executarIA() {
-    setStatus("Processando...");
-    setFase("");
-    setMensagem("");
+    setStatus("processando");
+    setFase("Analisando solicitação");
 
     try {
-      const res = await fetch("/api/admin/ai", {
+      const res = await fetch("/api/admin/history/ai", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt }),
       });
 
       const data = await res.json();
 
-      setStatus(data.status);
-      setFase(data.fase);
-      setMensagem(data.mensagem);
-    } catch (error) {
+      setStatus(data.status ?? "ok");
+      setFase(data.fase ?? "Concluído");
+    } catch (err) {
       setStatus("erro");
-      setMensagem("Erro ao executar a IA");
+      setFase("Falha ao executar IA");
     }
   }
 
   return (
-    <div className="max-w-4xl mx-auto py-10">
-      <h1 className="text-3xl font-bold mb-6">
-        Painel Admin — MRMoviecom IA
-      </h1>
+    <div style={{ padding: 24 }}>
+      <h1>Painel Admin — MRMoviecom IA</h1>
 
       <textarea
-        className="w-full h-40 p-4 border rounded bg-black text-green-400 font-mono"
-        placeholder="Descreva o que deseja executar..."
         value={prompt}
         onChange={(e) => setPrompt(e.target.value)}
+        placeholder="Descreva o que deseja executar"
+        style={{ width: "100%", height: 120 }}
       />
 
-      <button
-        onClick={executarIA}
-        className="mt-4 px-6 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-500"
-      >
-        Executar
-      </button>
+      <br />
+      <br />
 
-      <div className="mt-6">
-        <p>
-          <strong>Status:</strong> {status}
-        </p>
-        <p>
-          <strong>Fase atual:</strong> {fase}
-        </p>
-        <p className="mt-2 text-gray-300">{mensagem}</p>
-      </div>
+      <button onClick={executarIA}>Executar</button>
+
+      <br />
+      <br />
+
+      {status && <p>Status: {status}</p>}
+      {fase && <p>Fase atual: {fase}</p>}
     </div>
   );
 }
