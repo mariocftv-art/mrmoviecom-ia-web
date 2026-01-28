@@ -2,22 +2,19 @@
 
 import { useEffect, useState } from "react";
 
+type DashboardData = {
+  credits: number;
+  executions: number;
+  projects: number;
+  status: string;
+};
+
 export default function DashboardPage() {
-  const [data, setData] = useState<{
-    credits: number;
-    executions: number;
-    projects: number;
-    status: string;
-  } | null>(null);
+  const [data, setData] = useState<DashboardData | null>(null);
 
   useEffect(() => {
     fetch("/api/dashboard")
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Erro ao carregar dashboard");
-        }
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((json) => setData(json))
       .catch(() => {
         setData({
@@ -38,36 +35,52 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="space-y-8">
-      {/* TÍTULO */}
+    <div className="space-y-10">
+      {/* HEADER */}
       <div>
-        <h2 className="text-2xl font-semibold text-white">
-          Dashboard
+        <h2 className="text-3xl font-bold text-white">
+          Visão Geral
         </h2>
-        <p className="text-gray-400">
-          Visão geral da plataforma MRMoviecom IA
+        <p className="text-gray-400 mt-1">
+          Acompanhe a atividade da plataforma MRMoviecom IA
         </p>
       </div>
 
       {/* CARDS */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card title="Créditos" value={String(data.credits)} />
-        <Card title="Execuções IA" value={String(data.executions)} />
-        <Card title="Projetos" value={String(data.projects)} />
-        <Card title="Status IA" value={data.status} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <StatCard
+          title="Créditos"
+          value={data.credits}
+          gradient="from-indigo-500 to-cyan-400"
+        />
+        <StatCard
+          title="Execuções IA"
+          value={data.executions}
+          gradient="from-purple-500 to-pink-400"
+        />
+        <StatCard
+          title="Projetos"
+          value={data.projects}
+          gradient="from-emerald-500 to-lime-400"
+        />
+        <StatCard
+          title="Status IA"
+          value={data.status}
+          gradient="from-sky-500 to-indigo-400"
+        />
       </div>
 
       {/* PAINÉIS */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Panel title="Últimas Execuções IA">
+        <Panel title="Últimas Execuções">
           <p className="text-gray-500 text-sm">
-            Histórico detalhado será exibido aqui.
+            Histórico detalhado aparecerá aqui.
           </p>
         </Panel>
 
-        <Panel title="Atividade do Sistema">
+        <Panel title="Sistema">
           <p className="text-gray-500 text-sm">
-            Sistema operando normalmente.
+            Todos os serviços operando normalmente.
           </p>
         </Panel>
       </div>
@@ -75,15 +88,30 @@ export default function DashboardPage() {
   );
 }
 
-/* ===== COMPONENTES ===== */
+/* ================= COMPONENTES ================= */
 
-function Card({ title, value }: { title: string; value: string }) {
+function StatCard({
+  title,
+  value,
+  gradient,
+}: {
+  title: string;
+  value: number | string;
+  gradient: string;
+}) {
   return (
-    <div className="glass rounded-2xl p-6 card-hover">
-      <p className="text-sm text-gray-400">{title}</p>
-      <p className="text-3xl font-bold gradient-text mt-2">
-        {value}
-      </p>
+    <div className="relative overflow-hidden rounded-2xl bg-white/5 border border-white/10 p-6">
+      <div
+        className={`absolute inset-0 opacity-20 bg-gradient-to-br ${gradient}`}
+      />
+      <div className="relative">
+        <p className="text-sm text-gray-400">
+          {title}
+        </p>
+        <p className="text-3xl font-bold text-white mt-2">
+          {value}
+        </p>
+      </div>
     </div>
   );
 }
@@ -96,7 +124,7 @@ function Panel({
   children: React.ReactNode;
 }) {
   return (
-    <div className="glass rounded-2xl p-6">
+    <div className="rounded-2xl bg-white/5 border border-white/10 p-6">
       <h3 className="text-white font-semibold mb-4">
         {title}
       </h3>
