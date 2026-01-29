@@ -1,4 +1,9 @@
-import './globals.css';
+import "./globals.css";
+
+export const metadata = {
+  title: "MRMoviecom IA",
+  description: "Plataforma IA futurista",
+};
 
 export default function RootLayout({
   children,
