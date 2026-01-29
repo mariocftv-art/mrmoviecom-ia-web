@@ -1,17 +1,42 @@
 import { NextResponse } from "next/server";
 
+type HistoryItem = {
+  prompt: string;
+  output: string;
+  createdAt: string;
+};
+
+const memoryHistory: HistoryItem[] = [];
+
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
+    const { prompt, output } = await req.json();
 
-    return NextResponse.json({
-      success: true,
-      data: body,
+    if (!prompt || !output) {
+      return NextResponse.json(
+        { success: false, error: "Dados inválidos" },
+        { status: 400 }
+      );
+    }
+
+    memoryHistory.unshift({
+      prompt,
+      output,
+      createdAt: new Date().toISOString(),
     });
-  } catch (error) {
+
+    return NextResponse.json({ success: true });
+  } catch {
     return NextResponse.json(
-      { success: false, error: "Erro interno" },
+      { success: false, error: "Erro ao salvar histórico" },
       { status: 500 }
     );
   }
+}
+
+export async function GET() {
+  return NextResponse.json({
+    success: true,
+    data: memoryHistory.slice(0, 20),
+  });
 }

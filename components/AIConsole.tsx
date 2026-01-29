@@ -1,51 +1,77 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import AIHistory from "@/components/AIHistory";
 
 export default function AIConsole() {
-  const [open, setOpen] = useState<boolean>(true);
+  const [prompt, setPrompt] = useState("");
+  const [output, setOutput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  // 🔹 Carrega estado salvo
-  useEffect(() => {
-    const saved = localStorage.getItem("ai_console_open");
-    if (saved !== null) {
-      setOpen(saved === "true");
+  async function handleExecute() {
+    setLoading(true);
+    setError(null);
+    setOutput("");
+
+    try {
+      const res = await fetch("/api/ai/execute", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Erro ao executar IA");
+      }
+
+      setOutput(data.output);
+    } catch (err: any) {
+      setError(err.message || "Erro desconhecido");
+    } finally {
+      setLoading(false);
     }
-  }, []);
-
-  // 🔹 Salva estado
-  useEffect(() => {
-    localStorage.setItem("ai_console_open", String(open));
-  }, [open]);
+  }
 
   return (
-    <div
-      className={`relative h-full transition-all duration-300 ${
-        open ? "w-[360px]" : "w-[48px]"
-      }`}
-    >
-      {/* BOTÃO TOGGLE */}
-      <button
-        onClick={() => setOpen(!open)}
-        className="absolute top-4 -left-4 z-20 h-8 w-8 rounded-full bg-black border border-white/10 text-xs text-white hover:bg-white/10"
-        title={open ? "Fechar IA" : "Abrir IA"}
-      >
-        {open ? "→" : "←"}
-      </button>
+    <div className="space-y-6">
+      {/* CONSOLE DE EXECUÇÃO */}
+      <div>
+        <textarea
+          className="w-full p-3 bg-black border border-white/20 rounded text-white"
+          rows={5}
+          placeholder="Descreva o que deseja executar"
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+        />
 
-      {/* CONTEÚDO */}
-      {open && (
-        <div className="h-full glass p-6 rounded-2xl">
-          <h3 className="text-lg font-semibold mb-2">AI Console</h3>
+        <button
+          onClick={handleExecute}
+          disabled={loading}
+          className="mt-2 px-4 py-2 bg-white text-black rounded"
+        >
+          {loading ? "Executando..." : "Executar"}
+        </button>
 
-          <div className="bg-black/40 rounded-xl p-4 text-sm text-zinc-300">
-            <p className="text-zinc-400">IA pronta para interação.</p>
-            <p className="mt-2 italic text-zinc-500">
-              (em breve: chat em tempo real)
-            </p>
-          </div>
-        </div>
-      )}
+        {error && (
+          <p className="text-red-500 mt-2">
+            {error}
+          </p>
+        )}
+
+        {output && (
+          <pre className="mt-4 p-3 bg-black border border-green-500 text-green-400 whitespace-pre-wrap">
+            {output}
+          </pre>
+        )}
+      </div>
+
+      {/* HISTÓRICO DE EXECUÇÕES */}
+      <AIHistory />
     </div>
   );
 }
