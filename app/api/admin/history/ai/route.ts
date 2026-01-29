@@ -1,10 +1,18 @@
-export async function createProjectsModule() {
-  return {
-    created: [
-      "app/projects/page.tsx",
-      "app/projects/layout.tsx",
-      "app/projects/components/ProjectCard.tsx",
-    ],
-    message: "Módulo Projects gerado com sucesso",
-  };
+import { NextResponse } from "next/server";
+
+export async function POST(req: Request) {
+  try {
+    const body = await req.json();
+
+    // ajuste aqui se precisar
+    return NextResponse.json({
+      success: true,
+      data: body,
+    });
+  } catch (error) {
+    return NextResponse.json(
+      { success: false, error: "Erro interno" },
+      { status: 500 }
+    );
+  }
 }
