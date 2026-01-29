@@ -1,4 +1,5 @@
 import Sidebar from '@/components/sidebar/Sidebar';
+import PlatformNav from '@/components/sidebar/PlatformNav';
 import MainContent from '@/components/LAYOUT/MainContent';
 
 export default function PlatformLayout({
@@ -8,8 +9,16 @@ export default function PlatformLayout({
 }) {
   return (
     <div className="min-h-screen flex bg-black text-white">
+      {/* SIDEBAR */}
       <Sidebar />
-      <MainContent>{children}</MainContent>
+
+      {/* MAIN AREA */}
+      <div className="flex-1 flex flex-col">
+        <PlatformNav />
+        <MainContent>
+          {children}
+        </MainContent>
+      </div>
     </div>
   );
 }
