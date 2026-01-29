@@ -1,21 +1,18 @@
 'use client';
 
-import PlatformNav from '@/components/PlatformNav';
+import PlatformNav from '@/components/sidebar/PlatformNav';
 
 export default function ProjectsPage() {
   return (
-    <div style={{ padding: 24 }}>
+    <div className="min-h-screen bg-black text-white">
       <PlatformNav />
 
-      <h1>Projetos</h1>
-
-      <p>Lista de projetos criados na plataforma.</p>
-
-      <ul style={{ marginTop: 16 }}>
-        <li>Projeto Vídeo Viral</li>
-        <li>Projeto Música IA</li>
-        <li>Projeto App Simples</li>
-      </ul>
+      <main className="p-10">
+        <h1 className="text-3xl font-bold mb-4">Projects</h1>
+        <p className="text-white/70">
+          Área de projetos da plataforma MRMoviecom IA.
+        </p>
+      </main>
     </div>
   );
 }

@@ -1,25 +1,28 @@
-"use client";
-
-import React from "react";
-
 export default function StatsCards() {
   const stats = [
     { label: "Projects", value: "3" },
-    { label: "Tokens", value: "5,200" },
+    { label: "Tokens", value: "5.200" },
     { label: "Executions", value: "158" },
+    { label: "Agents", value: "ONLINE" },
   ];
 
   return (
-    <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
       {stats.map((stat) => (
         <div
           key={stat.label}
-          className="glass p-6 rounded-2xl text-center"
+          className="rounded-xl border border-white/10 bg-black/40 backdrop-blur-xl p-4
+                     hover:border-cyan-400/40 transition
+                     shadow-[inset_0_0_20px_rgba(0,255,255,0.05)]"
         >
-          <p className="text-zinc-400">{stat.label}</p>
-          <p className="text-3xl font-bold mt-2">{stat.value}</p>
+          <div className="text-xs uppercase tracking-widest text-white/50">
+            {stat.label}
+          </div>
+          <div className="mt-2 text-2xl font-semibold text-cyan-400">
+            {stat.value}
+          </div>
         </div>
       ))}
-    </section>
+    </div>
   );
 }

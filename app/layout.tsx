@@ -1,4 +1,3 @@
-// app/layout.tsx
 import "./globals.css";
 
 export default function RootLayout({
@@ -8,7 +7,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className="bg-black text-white">
+      <body className="bg-black text-white antialiased">
         {children}
       </body>
     </html>

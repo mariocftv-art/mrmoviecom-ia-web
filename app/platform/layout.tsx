@@ -1,6 +1,5 @@
-import React from "react";
-import Sidebar from "@/components/sidebar/Sidebar";
-import MainContent from "@/components/LAYOUT/MainContent";
+import Sidebar from '@/components/sidebar/Sidebar';
+import MainContent from '@/components/LAYOUT/MainContent';
 
 export default function PlatformLayout({
   children,
@@ -9,10 +8,7 @@ export default function PlatformLayout({
 }) {
   return (
     <div className="min-h-screen flex bg-black text-white">
-      {/* SIDEBAR */}
       <Sidebar />
-
-      {/* MAIN */}
       <MainContent>{children}</MainContent>
     </div>
   );

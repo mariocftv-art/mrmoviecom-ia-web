@@ -1,24 +1,23 @@
-// components/LAYOUT/PlatformNav.tsx
 "use client";
 
 import React from "react";
-import HeaderCredits from "@/components/HeaderCredits";
+import Sidebar from "@/components/sidebar/Sidebar";
+import MainContent from "@/components/LAYOUT/MainContent";
 
-export default function PlatformNav() {
+interface PlatformLayoutProps {
+  children: React.ReactNode;
+}
+
+export default function PlatformLayout({ children }: PlatformLayoutProps) {
   return (
-    <header className="h-16 w-full flex items-center justify-between px-8 border-b border-white/10 bg-black/70 backdrop-blur">
-      <div>
-        <h2 className="text-lg font-semibold">Dashboard</h2>
-        <p className="text-xs text-zinc-400">MRMoviecom IA Platform</p>
-      </div>
+    <div className="flex min-h-screen w-full bg-black text-white">
+      {/* SIDEBAR */}
+      <Sidebar />
 
-      <div className="flex items-center gap-6">
-        <span className="text-green-400 text-xs font-semibold">
-          ● AI ONLINE
-        </span>
-
-        <HeaderCredits />
-      </div>
-    </header>
+      {/* MAIN CONTENT */}
+      <MainContent>
+        {children}
+      </MainContent>
+    </div>
   );
 }

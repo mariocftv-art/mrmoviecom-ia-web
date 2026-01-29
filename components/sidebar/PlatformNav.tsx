@@ -1,24 +1,17 @@
-"use client";
-
-import React from "react";
+'use client';
 
 export default function PlatformNav() {
   return (
-    <header className="sticky top-0 z-30 h-16 w-full flex items-center justify-between px-6 border-b border-white/10 bg-black/80 backdrop-blur">
-      {/* LEFT */}
-      <div>
-        <h2 className="text-lg font-semibold">Dashboard</h2>
-        <p className="text-xs text-zinc-400">
-          MRMoviecom IA Platform
-        </p>
-      </div>
+    <header className="sticky top-0 z-40 h-16 flex items-center justify-between px-10
+      bg-black/80 backdrop-blur border-b border-white/10">
 
-      {/* RIGHT */}
+      <span className="text-sm text-white/70">
+        Dashboard
+      </span>
+
       <div className="flex items-center gap-3">
-        <span className="flex items-center gap-2 text-xs text-green-400 font-semibold">
-          <span className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
-          AI ONLINE
-        </span>
+        <span className="text-xs text-green-400">● AI ONLINE</span>
+        <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
       </div>
     </header>
   );
