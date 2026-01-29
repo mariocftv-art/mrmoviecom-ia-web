@@ -1,44 +1,40 @@
-'use client';
-
-import PlatformNav from '@/components/PlatformNav';
-
 export default function CreatePage() {
   return (
-    <div style={{ padding: 24 }}>
-      <PlatformNav />
+    <div className="space-y-6">
+      <h1 className="text-2xl font-bold">
+        Criar Projeto
+      </h1>
 
-      <h1>Criar Projeto</h1>
+      <p className="text-white/60">
+        Inicie um novo projeto com IA.
+      </p>
 
-      <p>Inicie um novo projeto com IA.</p>
-
-      <form style={{ marginTop: 24 }}>
-        <div style={{ marginBottom: 12 }}>
-          <label>Nome do Projeto</label><br />
+      <form className="space-y-4 max-w-xl">
+        <div>
+          <label className="block mb-1 text-sm">
+            Nome do Projeto
+          </label>
           <input
             placeholder="Ex: Vídeo viral TikTok"
-            style={{ padding: 8, width: '100%' }}
+            className="w-full rounded-md bg-zinc-900 border border-white/10 px-3 py-2"
           />
         </div>
 
-        <div style={{ marginBottom: 12 }}>
-          <label>Objetivo</label><br />
+        <div>
+          <label className="block mb-1 text-sm">
+            Objetivo
+          </label>
           <textarea
             placeholder="Descreva o que a IA deve fazer"
-            style={{ padding: 8, width: '100%', height: 100 }}
+            className="w-full rounded-md bg-zinc-900 border border-white/10 px-3 py-2 h-28"
           />
         </div>
 
         <button
           type="button"
-          style={{
-            padding: '10px 16px',
-            background: '#4f46e5',
-            color: '#fff',
-            border: 'none',
-            borderRadius: 6
-          }}
+          className="px-4 py-2 rounded-md bg-white text-black font-medium hover:bg-white/90"
         >
-          Criar
+          Criar Projeto
         </button>
       </form>
     </div>
