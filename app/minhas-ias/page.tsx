@@ -1,21 +1,19 @@
-'use client';
-
-import PlatformNav from '@/components/PlatformNav';
-
 export default function MinhasIASPage() {
   return (
-    <div style={{ padding: 24 }}>
-      <PlatformNav />
+    <div className="space-y-6">
+      <h1 className="text-2xl font-bold">
+        Minhas IAs
+      </h1>
 
-      <h1>Minhas IAs</h1>
+      <p className="text-white/60">
+        Gerencie seus projetos e agentes de IA.
+      </p>
 
-      <p>IAs ativas na MRMoviecom IA Platform.</p>
-
-      <ul style={{ marginTop: 16 }}>
-        <li>IA Vídeo — ativa</li>
-        <li>IA Música — ativa</li>
-        <li>IA Roteiro — ativa</li>
-      </ul>
+      <div className="rounded-xl border border-white/10 bg-zinc-900/60 p-6">
+        <p className="text-sm text-white/50">
+          Nenhum projeto encontrado.
+        </p>
+      </div>
     </div>
   );
 }
