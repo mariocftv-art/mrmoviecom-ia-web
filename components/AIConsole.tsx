@@ -1,77 +1,68 @@
 "use client";
 
 import { useState } from "react";
-import AIHistory from "@/components/AIHistory";
+import type { AIResult } from "@/lib/ai/types";
 
 export default function AIConsole() {
   const [prompt, setPrompt] = useState("");
-  const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [result, setResult] = useState<AIResult | null>(null);
 
   async function handleExecute() {
     setLoading(true);
-    setError(null);
-    setOutput("");
+    setResult(null);
 
     try {
       const res = await fetch("/api/ai/execute", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt }),
       });
 
-      const data = await res.json();
-
-      if (!res.ok || !data.success) {
-        throw new Error(data.error || "Erro ao executar IA");
-      }
-
-      setOutput(data.output);
-    } catch (err: any) {
-      setError(err.message || "Erro desconhecido");
+      const data: AIResult = await res.json();
+      setResult(data);
+    } catch {
+      setResult({
+        success: false,
+        actions: [],
+        error: "Erro ao comunicar com a IA",
+      });
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <div className="space-y-6">
-      {/* CONSOLE DE EXECUÇÃO */}
-      <div>
-        <textarea
-          className="w-full p-3 bg-black border border-white/20 rounded text-white"
-          rows={5}
-          placeholder="Descreva o que deseja executar"
-          value={prompt}
-          onChange={(e) => setPrompt(e.target.value)}
-        />
+    <div style={{ padding: 20 }}>
+      <textarea
+        value={prompt}
+        onChange={(e) => setPrompt(e.target.value)}
+        rows={6}
+        style={{ width: "100%" }}
+        placeholder="Digite o prompt da IA"
+      />
 
-        <button
-          onClick={handleExecute}
-          disabled={loading}
-          className="mt-2 px-4 py-2 bg-white text-black rounded"
-        >
-          {loading ? "Executando..." : "Executar"}
-        </button>
+      <button onClick={handleExecute} disabled={loading}>
+        {loading ? "Executando..." : "Executar"}
+      </button>
 
-        {error && (
-          <p className="text-red-500 mt-2">
-            {error}
-          </p>
-        )}
+      {result && (
+        <div style={{ marginTop: 20 }}>
+          <h3>Resposta da IA</h3>
 
-        {output && (
-          <pre className="mt-4 p-3 bg-black border border-green-500 text-green-400 whitespace-pre-wrap">
-            {output}
+          <pre
+            style={{
+              background: "#111",
+              padding: 12,
+              borderRadius: 6,
+              color: "#0f0",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            {JSON.stringify(result, null, 2)}
           </pre>
-        )}
-      </div>
-
-      {/* HISTÓRICO DE EXECUÇÕES */}
-      <AIHistory />
+        </div>
+      )}
     </div>
   );
 }

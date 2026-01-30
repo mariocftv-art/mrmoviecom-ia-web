@@ -1,41 +1,34 @@
-import { runOpenAI } from "./providers/openai";
 import { runLocalAI } from "./providers/local";
+import type { AIResult } from "./types";
 
-export type AIResult = {
-  success: boolean;
-  output: string;
-  tokens: number;
-  provider: "openai" | "local";
-  error?: string;
-};
-
+/**
+ * ENGINE PRINCIPAL DA IA
+ * 🔒 OpenAI DESATIVADO
+ * 🧠 Apenas IA Local
+ */
 export async function runAI(prompt: string): Promise<AIResult> {
   try {
-    if (!prompt || !prompt.trim()) {
-      throw new Error("Prompt vazio");
+    const result = await runLocalAI(prompt);
+
+    // garantia de contrato
+    if (
+      typeof result !== "object" ||
+      typeof result.success !== "boolean" ||
+      !Array.isArray(result.actions)
+    ) {
+      return {
+        success: false,
+        actions: [],
+        error: "IA local retornou fora do contrato",
+      };
     }
 
-    const provider =
-      process.env.AI_PROVIDER === "local" ? "local" : "openai";
-
-    const result =
-      provider === "local"
-        ? await runLocalAI(prompt)
-        : await runOpenAI(prompt);
-
-    return {
-      success: true,
-      output: result.output,
-      tokens: result.tokens,
-      provider,
-    };
-  } catch (err: any) {
+    return result;
+  } catch (err) {
     return {
       success: false,
-      output: "",
-      tokens: 0,
-      provider: "openai",
-      error: err?.message || "Erro na execução da IA",
+      actions: [],
+      error: "Falha ao executar IA local",
     };
   }
 }

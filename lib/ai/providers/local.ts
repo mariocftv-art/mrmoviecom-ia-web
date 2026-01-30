@@ -1,24 +1,43 @@
-export async function runLocalAI(prompt: string) {
-  const baseUrl = process.env.LOCAL_AI_URL || "http://localhost:11434";
+import type { AIResult } from "../types";
 
-  const res = await fetch(`${baseUrl}/api/generate`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      model: process.env.LOCAL_AI_MODEL || "llama3",
-      prompt,
-      stream: false,
-    }),
-  });
-
-  if (!res.ok) {
-    throw new Error("Falha ao executar IA local");
+/**
+ * IA LOCAL – SIMULA RACIOCÍNIO DA IA
+ * PASSO 5.2: múltiplos arquivos
+ */
+export async function runLocalAI(prompt: string): Promise<AIResult> {
+  // gatilho simples de teste
+  if (!prompt || prompt.length < 3) {
+    return {
+      success: false,
+      actions: [],
+      error: "Prompt vazio ou inválido",
+    };
   }
 
-  const data = await res.json();
-
   return {
-    output: data.response || "",
-    tokens: data.eval_count ?? 0,
+    success: true,
+    message: "PASSO 5.2 executado com sucesso",
+    actions: [
+      {
+        type: "create_file",
+        path: "app/ia-teste/README.md",
+        content: "# IA Teste\n\nArquivos criados automaticamente pela IA.",
+      },
+      {
+        type: "create_file",
+        path: "app/ia-teste/config.ts",
+        content: `export const IA_CONFIG = {
+  version: "5.2",
+  mode: "local",
+};`,
+      },
+      {
+        type: "create_file",
+        path: "app/ia-teste/service.ts",
+        content: `export function run() {
+  console.log("IA ativa");
+}`,
+      },
+    ],
   };
 }

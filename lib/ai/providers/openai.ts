@@ -5,20 +5,43 @@ const client = new OpenAI({
 });
 
 export async function runOpenAI(prompt: string) {
-  if (!process.env.OPENAI_API_KEY) {
-    throw new Error("OPENAI_API_KEY não configurada");
-  }
-
   const response = await client.chat.completions.create({
     model: "gpt-4o-mini",
     messages: [
-      { role: "system", content: "Você é uma IA técnica e objetiva." },
-      { role: "user", content: prompt },
+      {
+        role: "system",
+        content: `
+Você é uma IA de backend.
+Você DEVE responder SOMENTE em JSON válido.
+Formato obrigatório:
+
+{
+  "success": true,
+  "actions": [
+    {
+      "type": "create_file",
+      "path": "caminho/do/arquivo",
+      "content": "conteúdo completo"
+    }
+  ]
+}
+
+Proibido:
+- Texto fora do JSON
+- Markdown
+- Comentários
+- Explicações
+`,
+      },
+      {
+        role: "user",
+        content: prompt,
+      },
     ],
+    temperature: 0,
   });
 
   return {
-    output: response.choices[0]?.message?.content || "",
-    tokens: response.usage?.total_tokens ?? 0,
+    output: response.choices[0].message.content ?? "",
   };
 }
