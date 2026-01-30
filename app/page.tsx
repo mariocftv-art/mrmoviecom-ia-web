@@ -1,7 +1,5 @@
-"use client";
+import { redirect } from "next/navigation";
 
-import AIConsole from "@/components/AIConsole";
-
-export default function Page() {
-  return <AIConsole />;
+export default function Home() {
+  redirect("/platform");
 }

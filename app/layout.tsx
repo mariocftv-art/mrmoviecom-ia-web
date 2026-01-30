@@ -1,8 +1,8 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "MRMoviecom IA",
-  description: "Plataforma IA futurista",
+  title: "MRMoviecom IA Platform",
+  description: "Plataforma central de IA",
 };
 
 export default function RootLayout({
@@ -12,7 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className="bg-black text-white antialiased">
+      <body className="bg-black text-zinc-100 antialiased">
         {children}
       </body>
     </html>

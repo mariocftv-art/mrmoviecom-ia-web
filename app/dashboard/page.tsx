@@ -1,19 +1,13 @@
-import Header from "@/components/dashboard/Header";
-import StatCard from "@/components/dashboard/StatCard";
-import ActionLog from "@/components/dashboard/ActionLog";
-
 export default function DashboardPage() {
   return (
-    <>
-      <Header />
+    <main className="min-h-screen p-8 bg-zinc-950 text-zinc-100">
+      <h1 className="text-3xl font-bold text-cyan-400">
+        Dashboard – MRMoviecom IA Platform
+      </h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <StatCard title="Modo da IA" value="LOCAL" highlight />
-        <StatCard title="Engine" value="Ativa" />
-        <StatCard title="Status" value="Offline" />
-      </div>
-
-      <ActionLog />
-    </>
-  );
+      <p className="text-zinc-400 mt-2">
+        Painel principal em construção.
+      </p>
+    </main>
+  )
 }

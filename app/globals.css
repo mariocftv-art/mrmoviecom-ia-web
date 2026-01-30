@@ -1,64 +1,9 @@
-/* =========================================================
-   TAILWIND BASE (OBRIGATÓRIO)
-   ========================================================= */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* =========================================================
-   RESET / BASE GLOBAL
-   ========================================================= */
 html,
 body {
-  height: 100%;
   background-color: #000;
   color: #fff;
-}
-
-/* =========================================================
-   MRMoviecom IA – Premium Hacker Styles
-   ========================================================= */
-
-/* Glassmorphism */
-.glass {
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-}
-
-/* Gradient Text */
-.gradient-text {
-  background: linear-gradient(90deg, #f97316, #fde047);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Card Hover */
-.card-hover {
-  transition: all 0.25s ease;
-}
-
-.card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-}
-
-/* Scrollbar (opcional, estilo hacker) */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #0a0a0a;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #27272a;
-  border-radius: 8px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
 }
