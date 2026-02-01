@@ -1,9 +1,9 @@
 .page {
   min-height: 100vh;
-  background: radial-gradient(circle at top, #0b1220, #000000 60%);
+  background: #000000;
   padding: 32px;
   color: #ffffff;
-  font-family: system-ui, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 .title {
@@ -20,23 +20,37 @@
 }
 
 .card {
-  background: rgba(15, 15, 20, 0.85);
+  background: linear-gradient(135deg, #050505, #0b0b0b);
   border: 1px solid rgba(0, 255, 156, 0.35);
   border-radius: 16px;
   padding: 20px;
+  min-height: 110px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
   box-shadow:
-    0 0 0 1px rgba(0,255,156,0.15),
-    0 0 25px rgba(0,255,156,0.25);
+    0 0 1px rgba(0, 255, 156, 0.2),
+    0 0 22px rgba(0, 255, 156, 0.18);
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow:
+    0 0 4px rgba(0, 255, 156, 0.35),
+    0 0 30px rgba(0, 255, 156, 0.45);
 }
 
 .cardTitle {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: #9effd4;
+  font-size: 14px;
+  opacity: 0.85;
+  margin-bottom: 6px;
 }
 
 .cardValue {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
 }

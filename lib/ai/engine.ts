@@ -1,34 +1,37 @@
-import { runLocalAI } from "./providers/local";
-import type { AIResult } from "./types";
+// lib/ai/engine.ts
+import { setIAStatus, IAStatusState } from "./aiStatus";
 
 /**
- * ENGINE PRINCIPAL DA IA
- * 🔒 OpenAI DESATIVADO
- * 🧠 Apenas IA Local
+ * Engine central da IA (mock controlado)
+ * - Não usa React
+ * - Não toca UI
+ * - Apenas controla estado
  */
-export async function runAI(prompt: string): Promise<AIResult> {
-  try {
-    const result = await runLocalAI(prompt);
 
-    // garantia de contrato
-    if (
-      typeof result !== "object" ||
-      typeof result.success !== "boolean" ||
-      !Array.isArray(result.actions)
-    ) {
-      return {
-        success: false,
-        actions: [],
-        error: "IA local retornou fora do contrato",
-      };
-    }
+let engineRunning = false;
 
-    return result;
-  } catch (err) {
-    return {
-      success: false,
-      actions: [],
-      error: "Falha ao executar IA local",
-    };
-  }
+export function startEngine() {
+  if (engineRunning) return;
+  engineRunning = true;
+
+  // IA inicia online
+  setIAStatus("online");
+
+  // Simulação de ciclo de trabalho
+  setTimeout(() => {
+    setIAStatus("busy");
+  }, 3000);
+
+  setTimeout(() => {
+    setIAStatus("online");
+  }, 7000);
+}
+
+export function stopEngine() {
+  engineRunning = false;
+  setIAStatus("offline");
+}
+
+export function forceStatus(state: IAStatusState) {
+  setIAStatus(state);
 }
