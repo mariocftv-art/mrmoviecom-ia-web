@@ -1,21 +1,55 @@
 .page {
-  background: #050505;
   min-height: 100vh;
+  background: #000000;
   padding: 32px;
-  color: white;
-}
-
-.card {
-  background: #0b0b0f;
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 14px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 0 25px rgba(0,255,156,0.25);
+  color: #ffffff;
 }
 
 .title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 24px;
   color: #00ff9c;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: linear-gradient(135deg, #050505, #0b0b0b);
+  border: 1px solid rgba(0, 255, 156, 0.35);
+  border-radius: 16px;
+  padding: 20px;
+  min-height: 110px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  box-shadow:
+    0 0 1px rgba(0, 255, 156, 0.2),
+    0 0 22px rgba(0, 255, 156, 0.18);
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow:
+    0 0 4px rgba(0, 255, 156, 0.35),
+    0 0 30px rgba(0, 255, 156, 0.45);
+}
+
+.cardTitle {
+  font-size: 14px;
+  opacity: 0.85;
+  margin-bottom: 6px;
+}
+
+.cardValue {
   font-size: 22px;
-  font-weight: 600;
+  font-weight: 700;
 }
