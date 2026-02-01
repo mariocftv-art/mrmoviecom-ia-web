@@ -1,11 +1,14 @@
 // app/dashboard/page.tsx
-import { startEngine } from "../../lib/ai/engine";
 import styles from "./dashboard.module.css";
 import { getIAStatus } from "../../lib/ai/aiStatus";
+import { startEngine } from "../../lib/ai/engine";
 
 export default function DashboardPage() {
+  // inicia a engine (mock)
+  startEngine();
+
   const aiStatus = getIAStatus();
-startEngine();
+
   return (
     <div className={styles.page}>
       <h1 className={styles.title}>
@@ -19,7 +22,11 @@ startEngine();
 
           <div
             className={`${styles.cardValue} ${
-              aiStatus.state === "online" ? styles.statusOnline : ""
+              aiStatus.state === "online"
+                ? styles.statusOnline
+                : aiStatus.state === "busy"
+                ? styles.statusBusy
+                : styles.statusOffline
             }`}
           >
             {aiStatus.state.toUpperCase()}

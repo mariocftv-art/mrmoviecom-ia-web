@@ -7,7 +7,7 @@ export interface IAStatus {
 }
 
 let currentStatus: IAStatus = {
-  state: 'online',
+state: "offline",
 };
 
 export function getIAStatus(): IAStatus {

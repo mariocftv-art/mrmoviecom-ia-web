@@ -53,3 +53,14 @@
   font-size: 22px;
   font-weight: 700;
 }
+.statusOnline {
+  color: #00ff9c;
+}
+
+.statusBusy {
+  color: #ffd166;
+}
+
+.statusOffline {
+  color: #ff5c5c;
+}
