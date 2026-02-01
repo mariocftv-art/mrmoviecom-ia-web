@@ -1,0 +1,49 @@
+.chartBox {
+  margin-top: 48px;
+  padding: 24px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #071613, #020806);
+  border: 1px solid rgba(0, 255, 174, 0.35);
+
+  box-shadow:
+    0 0 30px rgba(0, 255, 174, 0.25),
+    inset 0 0 20px rgba(0, 255, 174, 0.08);
+
+  animation: fadeUp 0.8s ease forwards;
+}
+
+.chartBox h3 {
+  color: #00ffae;
+  margin-bottom: 18px;
+}
+
+.chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  height: 140px;
+}
+
+.chart span {
+  flex: 1;
+  background: linear-gradient(
+    180deg,
+    #00ffae,
+    rgba(0, 255, 174, 0.15)
+  );
+  border-radius: 10px;
+  box-shadow: 0 0 16px rgba(0, 255, 174, 0.6);
+  animation: barGrow 1.2s ease forwards;
+}
+
+.caption {
+  margin-top: 14px;
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+@keyframes barGrow {
+  from {
+    height: 0;
+  }
+}

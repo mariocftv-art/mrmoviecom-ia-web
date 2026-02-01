@@ -1,20 +1,22 @@
 type Props = {
   title: string;
-  value: string;
-  highlight?: boolean;
+  value: number | string;
 };
 
-export default function StatCard({ title, value, highlight }: Props) {
+export default function StatCard({ title, value }: Props) {
   return (
     <div
-      className={`rounded-xl border p-4 ${
-        highlight
-          ? "border-green-500 bg-green-500/10 text-green-400"
-          : "border-zinc-800 bg-zinc-900 text-white"
-      }`}
+      style={{
+        background: 'var(--card)',
+        border: '1px solid var(--border)',
+        borderRadius: 14,
+        padding: 18,
+        marginBottom: 12,
+        boxShadow: '0 10px 25px rgba(0,0,0,0.05)',
+      }}
     >
-      <p className="text-sm text-zinc-400">{title}</p>
-      <p className="text-xl font-bold mt-1">{value}</p>
+      <div style={{ fontSize: 12, opacity: 0.7 }}>{title}</div>
+      <div style={{ fontSize: 26, fontWeight: 700 }}>{value}</div>
     </div>
   );
 }

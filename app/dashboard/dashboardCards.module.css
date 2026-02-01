@@ -1,0 +1,31 @@
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.card {
+  background: linear-gradient(145deg, #0a0a0a, #000);
+  border: 1px solid rgba(0, 255, 170, 0.25);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow:
+    0 0 20px rgba(0, 255, 170, 0.15),
+    inset 0 0 10px rgba(0, 255, 170, 0.08);
+}
+
+.label {
+  font-size: 13px;
+  color: #7fffd4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.value {
+  display: block;
+  margin-top: 10px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #ffffff;
+}

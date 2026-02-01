@@ -1,21 +1,14 @@
-import "./globals.css";
-import type { ReactNode } from "react";
-
-export const metadata = {
-  title: "MRMoviecom IA Platform",
-  description: "Plataforma de IA MRMoviecom",
-};
-
+// app/layout.tsx
 export default function RootLayout({
   children,
 }: {
-  children: ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="pt-BR">
-      <body className="bg-black text-white">
+      <body>
         {children}
       </body>
     </html>
-  );
+  )
 }

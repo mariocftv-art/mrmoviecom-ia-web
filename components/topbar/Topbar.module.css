@@ -1,0 +1,43 @@
+.topbar {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  background: linear-gradient(90deg, #050505, #0b0f14);
+  border-bottom: 1px solid rgba(0, 255, 180, 0.25);
+  box-shadow: 0 0 25px rgba(0, 255, 180, 0.15);
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #00ffb3;
+}
+
+.title span {
+  color: #ffffff;
+  font-weight: 400;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00ffb3, #00c8ff);
+  color: #000;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.name {
+  color: #d1d1d1;
+}

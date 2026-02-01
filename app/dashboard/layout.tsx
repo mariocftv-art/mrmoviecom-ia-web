@@ -1,21 +1,29 @@
-import Sidebar from "@/components/sidebar/Sidebar";
+import Sidebar from '@/components/Sidebar';
+import Topbar from '@/components/Topbar';
 
 export default function DashboardLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
-    <div className="min-h-screen flex bg-black text-white">
-      {/* Sidebar fixa */}
-      <aside className="w-64 border-r border-white/10">
-        <Sidebar />
-      </aside>
+    <div style={{ display: 'flex', height: '100vh' }}>
 
-      {/* Conteúdo principal */}
-      <main className="flex-1 p-8">
-        {children}
-      </main>
+      {/* SIDEBAR */}
+      <Sidebar />
+
+      {/* ÁREA PRINCIPAL */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+
+        {/* TOPBAR */}
+        <Topbar />
+
+        {/* MAIN */}
+        <main style={{ flex: 1, padding: 16 }}>
+          {children}
+        </main>
+
+      </div>
     </div>
   );
 }

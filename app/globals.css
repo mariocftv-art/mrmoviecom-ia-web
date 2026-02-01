@@ -1,9 +1,132 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* ===============================
+   MRMoviecom IA Platform
+   Base Dark SaaS + Hacker Futurista
+   =============================== */
 
-/* Opcional: define um fundo padrão para a tela toda */
+:root {
+  --bg-main: #0b0f1a;
+  --bg-soft: #11162a;
+  --bg-card: rgba(255, 255, 255, 0.04);
+  --border-soft: rgba(255, 255, 255, 0.08);
+
+  --text-main: #e5e7eb;
+  --text-muted: #9ca3af;
+
+  --accent-cyan: #22d3ee;
+  --accent-green: #22c55e;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
 body {
-  background-color: black;
-  color: white;
+  height: 100%;
+  background: var(--bg-main);
+  color: var(--text-main);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Ubuntu, sans-serif;
+}
+
+/* Links */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ===============================
+   LAYOUT GERAL
+   =============================== */
+
+main {
+  background: var(--bg-soft);
+  border-radius: 16px;
+}
+
+/* ===============================
+   CARDS (Stats / Painéis)
+   =============================== */
+
+.card,
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-soft);
+  border-radius: 16px;
+  padding: 20px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover,
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* ===============================
+   TÍTULOS E TEXTO
+   =============================== */
+
+h1,
+h2,
+h3 {
+  color: #ffffff;
+}
+
+p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ===============================
+   SIDEBAR (base)
+   =============================== */
+
+aside {
+  background: linear-gradient(
+    180deg,
+    #060914 0%,
+    #0b1024 60%,
+    #020617 100%
+  );
+  border-right: 1px solid var(--border-soft);
+}
+
+/* ===============================
+   LISTAS / ATIVIDADES
+   =============================== */
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+li {
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+/* ===============================
+   SCROLLBAR (desktop)
+   =============================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
 }

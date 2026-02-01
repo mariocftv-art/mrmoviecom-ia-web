@@ -1,0 +1,7 @@
+.sidebar {
+  width: 260px;
+  min-width: 260px;
+  height: 100vh;
+  background: #050505;
+  border-right: 1px solid rgba(0, 255, 180, 0.15);
+}
