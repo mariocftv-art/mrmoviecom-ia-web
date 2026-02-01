@@ -1,6 +1,7 @@
 // lib/ai/engine.ts
 import { setIAStatus } from "./aiStatus";
 import { addTask, getNextTask, hasTasks, IATask } from "./taskQueue";
+import { generateText } from "./providers/textProvider";
 
 let engineRunning = false;
 
@@ -30,9 +31,12 @@ async function processTask(task: IATask) {
   console.log("[ENGINE] Processando task:", task.id);
   setIAStatus("busy");
 
-  await sleep(2000);
+  if (task.type === "text") {
+    const prompt = task.payload?.prompt ?? "";
+    const result = await generateText(prompt);
+    console.log("[ENGINE] RESULTADO IA:", result);
+  }
 
-  console.log("[ENGINE] Task finalizada:", task.id);
   setIAStatus("online");
 }
 
@@ -42,13 +46,15 @@ export function stopEngine() {
 }
 
 /**
- * 🔥 TESTE OFICIAL (server-safe)
+ * 🔥 TESTE CONTROLADO
  */
 export function enqueueTestTask() {
   addTask({
     id: `task-${Date.now()}`,
     type: "text",
-    payload: { prompt: "teste interno" },
+    payload: {
+      prompt: "Explique em uma frase o que é inteligência artificial.",
+    },
     createdAt: Date.now(),
   });
 }
