@@ -2,7 +2,7 @@
 import styles from "./dashboard.module.css";
 import { getIAStatus } from "../../lib/ai/aiStatus";
 import { startEngine } from "../../lib/ai/engine";
-
+import { enqueueTestTask } from "../../lib/ai/engine";
 export default function DashboardPage() {
   // inicia a engine (mock)
   startEngine();

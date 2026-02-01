@@ -1,13 +1,12 @@
-// lib/ai/aiStatus.ts
-
-export type IAStatusState = 'online' | 'busy' | 'offline';
+// lib/ai/iaStatus.ts
+export type IAStatusState = "online" | "busy" | "offline";
 
 export interface IAStatus {
   state: IAStatusState;
 }
 
 let currentStatus: IAStatus = {
-state: "offline",
+  state: "online",
 };
 
 export function getIAStatus(): IAStatus {

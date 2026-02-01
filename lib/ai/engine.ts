@@ -1,12 +1,6 @@
 // lib/ai/engine.ts
-import { setIAStatus, IAStatusState } from "./aiStatus";
-
-/**
- * Engine central da IA (mock controlado)
- * - Não usa React
- * - Não toca UI
- * - Apenas controla estado
- */
+import { setIAStatus } from "./aiStatus";
+import { addTask, getNextTask, hasTasks, IATask } from "./taskQueue";
 
 let engineRunning = false;
 
@@ -14,17 +8,32 @@ export function startEngine() {
   if (engineRunning) return;
   engineRunning = true;
 
-  // IA inicia online
+  console.log("[ENGINE] Iniciada");
   setIAStatus("online");
 
-  // Simulação de ciclo de trabalho
-  setTimeout(() => {
-    setIAStatus("busy");
-  }, 3000);
+  loop();
+}
 
-  setTimeout(() => {
-    setIAStatus("online");
-  }, 7000);
+async function loop() {
+  while (engineRunning) {
+    if (hasTasks()) {
+      const task = getNextTask();
+      if (task) {
+        await processTask(task);
+      }
+    }
+    await sleep(500);
+  }
+}
+
+async function processTask(task: IATask) {
+  console.log("[ENGINE] Processando task:", task.id);
+  setIAStatus("busy");
+
+  await sleep(2000);
+
+  console.log("[ENGINE] Task finalizada:", task.id);
+  setIAStatus("online");
 }
 
 export function stopEngine() {
@@ -32,6 +41,18 @@ export function stopEngine() {
   setIAStatus("offline");
 }
 
-export function forceStatus(state: IAStatusState) {
-  setIAStatus(state);
+/**
+ * 🔥 TESTE OFICIAL (server-safe)
+ */
+export function enqueueTestTask() {
+  addTask({
+    id: `task-${Date.now()}`,
+    type: "text",
+    payload: { prompt: "teste interno" },
+    createdAt: Date.now(),
+  });
+}
+
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
