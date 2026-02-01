@@ -1,7 +1,69 @@
 .sidebar {
-  width: 260px;
-  min-width: 260px;
+  width: 240px;
   height: 100vh;
-  background: #050505;
-  border-right: 1px solid rgba(0, 255, 180, 0.15);
+  background: linear-gradient(180deg, #050505, #0a0a0a);
+  border-right: 1px solid rgba(0, 255, 180, 0.25);
+  box-shadow: 0 0 25px rgba(0, 255, 180, 0.15);
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  margin-bottom: 32px;
+}
+
+.brand {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.sub {
+  font-size: 12px;
+  color: #00ffb3;
+  opacity: 0.8;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #d1d1d1;
+  padding: 10px 12px;
+  border-radius: 8px;
+  transition: all 0.25s ease;
+  border: 1px solid transparent;
+}
+
+.nav a:hover {
+  color: #00ffb3;
+  border: 1px solid rgba(0, 255, 180, 0.4);
+  box-shadow: 0 0 12px rgba(0, 255, 180, 0.35);
+}
+
+.active {
+  color: #00ffb3 !important;
+  border: 1px solid rgba(0, 255, 180, 0.6);
+  box-shadow: 0 0 18px rgba(0, 255, 180, 0.5);
+}
+
+.footer {
+  margin-top: auto;
+}
+
+.upgrade {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #00ffb3, #00c8ff);
+  color: #000;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
 }

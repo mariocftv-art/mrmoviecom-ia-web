@@ -1,7 +1,7 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
+  gap: 24px;
   margin-top: 24px;
 }
 
@@ -16,7 +16,9 @@
 
 .card:hover {
   border-color: var(--accent-cyan);
-  box-shadow: 0 0 20px rgba(34, 211, 238, 0.25);
+  box-shadow:
+    0 0 12px rgba(34, 211, 238, 0.35),
+    0 0 24px rgba(34, 211, 238, 0.2);
   transform: translateY(-2px);
 }
 
@@ -26,8 +28,7 @@
 }
 
 .value {
-  display: block;
-  margin-top: 8px;
+  margin-top: 6px;
   font-size: 28px;
   font-weight: 600;
   color: var(--text-main);

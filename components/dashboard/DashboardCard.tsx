@@ -1,4 +1,4 @@
-import styles from './dashboardCards.module.css';
+import styles from "./dashboardCards.module.css";
 
 export default function DashboardCard() {
   return (

@@ -1,5 +1,4 @@
-import Sidebar from "@/components/dashboard/Sidebar";
-import ContentContainer from "@/components/dashboard/ContentContainer";
+import Sidebar from "@/components/sidebar/Sidebar";
 
 export default function DashboardLayout({
   children,
@@ -7,19 +6,9 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div
-      style={{
-        display: "flex",
-        minHeight: "100vh",
-        background: "var(--bg-main)",
-        color: "var(--text-main)",
-      }}
-    >
+    <div style={{ display: "flex" }}>
       <Sidebar />
-
-      <main style={{ flex: 1 }}>
-        <ContentContainer>{children}</ContentContainer>
-      </main>
+      <main style={{ flex: 1 }}>{children}</main>
     </div>
   );
 }
