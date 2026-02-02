@@ -1,30 +1,48 @@
-// lib/ai/taskQueue.ts
+type TaskStatus = "pending" | "processing" | "done";
 
-export type IATaskType = "text" | "analysis" | "command";
-
-export interface IATask {
+export type Task = {
   id: string;
-  type: IATaskType;
-  payload: any;
+  type: string;
+  status: TaskStatus;
+  payload?: any;
   createdAt: number;
-}
+  finishedAt?: number;
+};
 
-const queue: IATask[] = [];
+const queue: Task[] = [];
+let isProcessing = false;
 
-export function addTask(task: IATask) {
+export function enqueueTask(task: Task) {
   queue.push(task);
-  console.log("[QUEUE] Task adicionada:", task);
 }
 
-export function getNextTask(): IATask | null {
-  return queue.shift() || null;
+export function getNextTask() {
+  return queue.find((t) => t.status === "pending");
 }
 
-export function hasTasks(): boolean {
-  return queue.length > 0;
+export function startProcessing(taskId: string) {
+  const task = queue.find((t) => t.id === taskId);
+  if (task) {
+    task.status = "processing";
+    isProcessing = true;
+  }
 }
-// DEBUG ONLY — acesso direto pelo console
-if (typeof window !== "undefined") {
-  // @ts-ignore
-  window.addIATask = addTask;
+
+export function finishTask(taskId: string) {
+  const task = queue.find((t) => t.id === taskId);
+  if (task) {
+    task.status = "done";
+    task.finishedAt = Date.now();
+    isProcessing = false;
+  }
+}
+
+export function getQueueSnapshot() {
+  return {
+    total: queue.length,
+    pending: queue.filter((t) => t.status === "pending").length,
+    processing: queue.filter((t) => t.status === "processing").length,
+    done: queue.filter((t) => t.status === "done").length,
+    lastTasks: queue.slice(-5).reverse(),
+  };
 }

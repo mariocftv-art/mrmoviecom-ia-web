@@ -1,0 +1,30 @@
+export function getLayoutSnapshot() {
+  if (typeof window === "undefined") return null;
+
+  const body = document.body;
+
+  return {
+    url: window.location.pathname,
+    viewport: {
+      width: window.innerWidth,
+      height: window.innerHeight,
+    },
+    bodyStyles: {
+      overflow: getComputedStyle(body).overflow,
+      pointerEvents: getComputedStyle(body).pointerEvents,
+    },
+    elements: Array.from(document.querySelectorAll("nav, aside, main, header"))
+      .map((el) => {
+        const style = getComputedStyle(el);
+        return {
+          tag: el.tagName,
+          className: el.className,
+          display: style.display,
+          position: style.position,
+          zIndex: style.zIndex,
+          pointerEvents: style.pointerEvents,
+          visibility: style.visibility,
+        };
+      }),
+  };
+}

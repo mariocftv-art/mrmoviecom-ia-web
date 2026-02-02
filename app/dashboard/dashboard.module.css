@@ -1,12 +1,14 @@
+/* ===== BASE LAYOUT ===== */
+
 .page {
+  padding: 24px;
+  color: #e5e7eb;
+  background: #0b0f14;
   min-height: 100vh;
-  background: #000000;
-  padding: 32px;
-  color: #ffffff;
 }
 
 .title {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 700;
   margin-bottom: 24px;
   color: #00ff9c;
@@ -14,53 +16,60 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
 }
 
 .card {
-  background: linear-gradient(135deg, #050505, #0b0b0b);
-  border: 1px solid rgba(0, 255, 156, 0.35);
-  border-radius: 16px;
-  padding: 20px;
-  min-height: 110px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  box-shadow:
-    0 0 1px rgba(0, 255, 156, 0.2),
-    0 0 22px rgba(0, 255, 156, 0.18);
-
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.card:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow:
-    0 0 4px rgba(0, 255, 156, 0.35),
-    0 0 30px rgba(0, 255, 156, 0.45);
+  background: linear-gradient(180deg, #0f1623, #0b0f14);
+  border-radius: 14px;
+  padding: 18px;
+  border: 1px solid rgba(0, 255, 156, 0.15);
 }
 
 .cardTitle {
   font-size: 14px;
-  opacity: 0.85;
+  opacity: 0.7;
   margin-bottom: 6px;
 }
 
 .cardValue {
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 600;
 }
-.statusOnline {
+
+/* ===== IA STATUS ANIMATION ===== */
+
+.aiOnline {
   color: #00ff9c;
+  animation: pulseGlow 2.2s infinite;
 }
 
-.statusBusy {
-  color: #ffd166;
+.aiProcessing {
+  color: #00e0ff;
+  animation: processingGlow 1.2s infinite linear;
 }
 
-.statusOffline {
-  color: #ff5c5c;
+@keyframes pulseGlow {
+  0% {
+    text-shadow: 0 0 6px rgba(0, 255, 156, 0.4);
+    opacity: 0.9;
+  }
+  50% {
+    text-shadow: 0 0 18px rgba(0, 255, 156, 0.9);
+    opacity: 1;
+  }
+  100% {
+    text-shadow: 0 0 6px rgba(0, 255, 156, 0.4);
+    opacity: 0.9;
+  }
+}
+
+@keyframes processingGlow {
+  0% {
+    text-shadow: 0 0 6px rgba(0, 224, 255, 0.4);
+  }
+  100% {
+    text-shadow: 0 0 18px rgba(0, 224, 255, 0.9);
+  }
 }

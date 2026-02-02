@@ -66,3 +66,8 @@ export class ExecutionEngine {
     }
   }
 }
+import { pushStream } from "@/app/api/ai/stream/route";
+
+export function streamThought(text: string) {
+  pushStream(text);
+}

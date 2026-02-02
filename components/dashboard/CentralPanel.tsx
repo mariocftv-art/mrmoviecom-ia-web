@@ -1,18 +1,19 @@
-export default function CentralPanel() {
+"use client";
+
+export default function CentralPanel({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <div
+    <main
       style={{
-        background: "#ffffff",
-        borderRadius: 12,
-        padding: 20,
-        minHeight: 160,
-        boxShadow: "0 0 0 1px rgba(0,0,0,0.05)",
+        flex: 1,
+        padding: 24,
+        pointerEvents: "auto",
       }}
     >
-      <h3 style={{ marginBottom: 8 }}>IA Central</h3>
-      <p style={{ fontSize: 14, opacity: 0.8 }}>
-        Painel central da IA orquestradora.
-      </p>
-    </div>
-  )
+      {children}
+    </main>
+  );
 }
