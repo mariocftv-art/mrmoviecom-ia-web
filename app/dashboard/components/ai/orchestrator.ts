@@ -5,9 +5,9 @@ let running = false
 
 export async function Orchestrator(context?: any) {
   if (running) {
-    console.log("⏸️ Orchestrator já em execução")
-    return
-  }
+  console.log("⏸️ Orchestrator já em execução")
+  return { skipped: true }
+}
 
   running = true
   console.log("🧠 ORCHESTRATOR AUTO-CICLO INICIADO")

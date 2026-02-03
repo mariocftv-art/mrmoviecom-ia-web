@@ -1,3 +1,4 @@
+import { editFile } from "./fileEditor"
 import fs from "fs"
 import path from "path"
 
@@ -6,28 +7,31 @@ export type CommandInput = {
 }
 
 export function Command(input: CommandInput) {
-  console.log("⚙️ COMMAND EXECUTOR REAL — FILE MODE")
+  console.log("⚙️ COMMAND — AUTO-FIX MODE (DRY_RUN)")
 
+  const results = []
+
+  // 🔧 AUTO-FIX 01 — transformar container em GRID
+  const fixLayout = editFile({
+    filePath: "app/dashboard/page.tsx",
+    search: `<div className="dashboard-container">`,
+    replace: `<div className="dashboard-container grid grid-cols-12 gap-4">`,
+    mode: "APPLY" // 🔴 trocar para APPLY depois
+  })
+
+  results.push(fixLayout)
+
+  // 📝 LOG
   const logDir = path.join(process.cwd(), "logs")
-  const logFile = path.join(logDir, "ia-actions.log")
+  if (!fs.existsSync(logDir)) fs.mkdirSync(logDir)
 
-  if (!fs.existsSync(logDir)) {
-    fs.mkdirSync(logDir)
-  }
-
-  const timestamp = new Date().toISOString()
-
-  const content =
-    `\n[${timestamp}]\n` +
-    input.actions.map((a, i) => `- Ação ${i + 1}: ${a}`).join("\n")
-
-  fs.appendFileSync(logFile, content)
-
-  console.log("📝 Ações registradas em logs/ia-actions.log")
+  fs.appendFileSync(
+    path.join(logDir, "auto-fix.log"),
+    `\n[${new Date().toISOString()}]\n${JSON.stringify(results, null, 2)}`
+  )
 
   return {
-    status: "executed",
-    writtenFile: "logs/ia-actions.log",
-    executedActions: input.actions
+    status: "dry-run",
+    results
   }
 }
