@@ -1,0 +1,37 @@
+
+[2026-02-03T17:08:52.996Z]
+{
+  "mode": "DRY_RUN",
+  "results": [
+    {
+      "patchId": "dashboard-container-grid",
+      "ok": false,
+      "error": "Padrão não encontrado"
+    },
+    {
+      "patchId": "card-base-style",
+      "ok": true,
+      "mode": "DRY_RUN",
+      "file": "app/dashboard/page.tsx",
+      "changed": true
+    }
+  ]
+}
+[2026-02-03T17:09:53.632Z]
+{
+  "mode": "APPLY",
+  "results": [
+    {
+      "patchId": "dashboard-container-grid",
+      "ok": false,
+      "error": "Padrão não encontrado"
+    },
+    {
+      "patchId": "card-base-style",
+      "ok": true,
+      "mode": "APPLY",
+      "file": "app/dashboard/page.tsx",
+      "changed": true
+    }
+  ]
+}

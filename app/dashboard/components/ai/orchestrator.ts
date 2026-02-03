@@ -26,9 +26,10 @@ export async function Orchestrator(context?: any) {
   const visionResult = Vision()
 
   // 3️⃣ Execução (Command)
-  const commandResult = Command({
-    actions: visionResult.actions
-  })
+ const commandResult = Command({
+  actions: visionResult.actions,
+  mode: "APPLY" // 🔴 troque para APPLY quando validar
+})
 
   running = false
 

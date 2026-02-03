@@ -1,37 +1,42 @@
-import { editFile } from "./fileEditor"
 import fs from "fs"
 import path from "path"
+import { editFile } from "./fileEditor"
+import { patches } from "./patches"
 
 export type CommandInput = {
   actions: string[]
+  mode?: "DRY_RUN" | "APPLY"
 }
 
 export function Command(input: CommandInput) {
-  console.log("⚙️ COMMAND — AUTO-FIX MODE (DRY_RUN)")
+  const mode = input.mode ?? "DRY_RUN"
+  console.log(`⚙️ COMMAND — MULTI-FIX MODE (${mode})`)
 
-  const results = []
+  const results = patches.map(patch => {
+    const res = editFile({
+      filePath: patch.filePath,
+      search: patch.search,
+      replace: patch.replace,
+      mode
+    })
 
-  // 🔧 AUTO-FIX 01 — transformar container em GRID
-  const fixLayout = editFile({
-    filePath: "app/dashboard/page.tsx",
-    search: `<div className="dashboard-container">`,
-    replace: `<div className="dashboard-container grid grid-cols-12 gap-4">`,
-    mode: "APPLY" // 🔴 trocar para APPLY depois
+    return {
+      patchId: patch.id,
+      ...res
+    }
   })
 
-  results.push(fixLayout)
-
-  // 📝 LOG
+  // LOG ÚNICO
   const logDir = path.join(process.cwd(), "logs")
   if (!fs.existsSync(logDir)) fs.mkdirSync(logDir)
 
   fs.appendFileSync(
-    path.join(logDir, "auto-fix.log"),
-    `\n[${new Date().toISOString()}]\n${JSON.stringify(results, null, 2)}`
+    path.join(logDir, "auto-fix-multi.log"),
+    `\n[${new Date().toISOString()}]\n${JSON.stringify({ mode, results }, null, 2)}`
   )
 
   return {
-    status: "dry-run",
+    status: mode === "APPLY" ? "applied" : "dry-run",
     results
   }
 }
