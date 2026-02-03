@@ -1,0 +1,79 @@
+[33m77c7706[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m feat: dashboard IA v2 com queue, activity stream e AIThinking
+[33m3745d8a[m feat: add real text AI provider using OpenAI SDK
+[33mf221de4[m feat: activate task engine and processing loop
+[33mb3dc966[m feat: refine IA status visual states
+[33m0f2a4de[m feat: connect AI engine to status state
+[33m289d004[m lock dashboard layout dark stable
+[33m5eab8e3[m base estavel dashboard + tailwind + shadcn
+[33me099dd0[m base estavel dashboard + tailwind + shadcn
+[33m0ebc82c[m backup: tailwind instalado e configurado
+[33m8b243ca[m backup completo antes de corrigir erro 500 no dashboard
+[33m2461dce[m LACRE: dashboard funcionando (base estável SaaS dark)
+[33m4570a87[m checkpoint: layout base hacker futurista + platform funcional
+[33m8cae911[m feat: dashboard base + IA local ativa (passos 6.1–6.3)
+[33m4bdd977[m PASSO 5.2 - IA local cria multiplos arquivos (engine funcional)
+[33m6cd83ea[m chore: salvar progresso IA real (engine + openai provider)
+[33m7b37e09[m fix: corrigir route handler admin history ai (NextResponse)
+[33mdb09e7e[m fix: corrigir route handler admin history ai
+[33m25fbc59[m fix: ajustes de layout platform e estabilização do build
+[33mb20e1d1[m fix: remove PlatformNav from minhas-ias page
+[33mdd65ab5[m fix: remove PlatformNav usage from create/video page
+[33mbd5f9e8[m feat: futuristic platform layout with global sidebar and nav
+[33m4c103c7[m fix: correct PlatformNav import and stabilize layout
+[33m0c98f16[m feat: layout base da plataforma com sidebar, main content e dashboard
+[33m0130217[m backup visual dashboard antes de refatorar camadas
+[33m399646b[m feat: IA v2 orquestrador + tools + geradores + passos 1-9 concluídos
+[33m2df3dfd[m fix: forca runtime nodejs para execucao real da IA
+[33mee9e3d5[m feat: passo 4 - geracao automatica de estrutura do SaaS
+[33md88a151[m fix: admin layout e page funcionando
+[33md3086d6[m fix: api admin ai sempre retorna resposta
+[33m6b0f1af[m chore: remove dashboard antigo e consolida dashboard-lite
+[33mf1652a5[m fix: retorno da IA admin com fase e mensagem
+[33m5302569[m feat: IA central com interpretação de intenção e fase
+[33meabc751[m feat: plataforma premium layout e page
+[33m1cca13d[m fix: force single dashboard and ensure tailwind
+[33m503ff24[m fix: estrutura correta api/page + ia page
+[33m465d134[m dashboard premium
+[33m3f57a0a[m feat: ligar botão admin à api ai
+[33meff66fa[m fix: supabase edge runtime safe init
+[33m86af801[m fix: route ai funcionando
+[33m353e361[m fix: ajuste integração IA V2 (runOrchestrator)
+[33mb7c9f3e[m B31.1 dashboard avançado mock estrutural estável
+[33ma698f97[m B30.5 IA V2 consolidada como módulo independente estável
+[33m14e14a6[m B30.4.2 fix brain.ts e integração estável IA V2
+[33mbdc2c5e[m B30.3 fix IA V2 tipos e imports
+[33me8ddc87[m B30.2 IA V2 cérebro ativo (pensar → agir → aprender)
+[33m0af1907[m B27.5 pages completos da plataforma
+[33m51673e9[m B27.3 Fluxo Criar Projeto
+[33m04d13df[m B27.2 Templates da Plataforma
+[33m611a584[m CORE MRMoviecom IA Platform - progresso B26
+[33mc126d44[m MVP runtime safe - desativar admin e supabase
+[33m18a3a46[m disable credit-costs page (MVP sem supabase)
+[33m10f4c34[m stub isUltraEmail (MVP sem supabase)
+[33ma0a0be2[m disable HeaderCredits (MVP sem supabase)
+[33mdc3eccc[m remove middleware.ts (usar proxy.ts)
+[33m290acbe[m add middleware MVP sem auth
+[33m2021845[m chore: MVP sem supabase (build limpo Vercel)
+[33m87c56df[m chore: remover rotas dashboard e api para MVP
+[33m4154e50[m fix: desativar api credits (supabase) para MVP
+[33m3aa380e[m fix: remover dashboard antigo definitivamente
+[33mdce5036[m fix: desativar rota dashboard para MVP
+[33m7bc11ac[m fix: desativar grupo dashboard para MVP
+[33ma651cfc[m fix: desativar rota dashboard para MVP
+[33m1485484[m fix: layout dashboard MVP com export default
+[33mb50124b[m fix: remover route signout inválida para MVP
+[33mfcee0d1[m fix: neutralizar rotas e login para MVP
+[33m3a017f0[m fix: desativar módulos Supabase restantes para MVP
+[33m228489a[m fix: desativar supabase browser para MVP
+[33m1b6f5e3[m fix: desativar credits supabase para MVP
+[33m04792bf[m disable musica pages supabase for MVP
+[33mf0f5829[m disable supabase server for MVP
+[33m811273b[m disable login actions for MVP
+[33m7fcc4af[m fix: remove auth supabase from projects page (MVP launch)
+[33mfdacc51[m feat: Dashboard SaaS MVP (Blocos 7.1 a 7.5)
+[33m2e2c137[m feat: Importação de projetos externos (Bloco 6)
+[33m7a36519[m feat: Fluxo completo e Orquestrador (Bloco 5) — Plataforma pronta
+[33m8567274[m feat: Motor IA (Bloco 2) + Project Context (Bloco 3)
+[33m71bae91[m B1 completo: créditos, guard e dashboard
+[33mb02a6fb[m fix: supabase server client + cookies (B1.5 final)
+[33m961fb1e[m B1.3: preparação supabase client e admin
