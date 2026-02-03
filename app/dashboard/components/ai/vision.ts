@@ -4,20 +4,20 @@ export type VisionResult = {
   actions: string[]
 }
 
-export function Vision(context?: any): VisionResult {
-  console.log("👁️ VISION FASE 3 — ANALISANDO LAYOUT")
+export function Vision(): VisionResult {
+  console.log("👁️ VISION — ANALISANDO SNAPSHOT DO FRONT")
 
   return {
-    goal: "Analisar layout real do dashboard",
+    goal: "Analisar layout real a partir de snapshot",
     problems: [
-      "Cards desalinhados",
-      "Componentes duplicados",
+      "Possível desalinhamento de cards",
+      "Componentes repetidos",
       "Layout pesado"
     ],
     actions: [
-      "Normalizar grid dos cards",
+      "Normalizar grid do dashboard",
       "Remover duplicações",
-      "Otimizar layout"
+      "Propor otimização de layout"
     ]
   }
 }

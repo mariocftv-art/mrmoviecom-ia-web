@@ -3,7 +3,7 @@ import { Command } from "./command"
 
 let running = false
 
-export function Orchestrator(context?: any) {
+export async function Orchestrator(context?: any) {
   if (running) {
     console.log("⏸️ Orchestrator já em execução")
     return
@@ -12,7 +12,20 @@ export function Orchestrator(context?: any) {
   running = true
   console.log("🧠 ORCHESTRATOR AUTO-CICLO INICIADO")
 
-  const visionResult = Vision(context)
+  // 1️⃣ Snapshot do frontend (Vision Fase 3)
+  try {
+    await fetch("http://localhost:3000/api/vision/snapshot", {
+      method: "POST"
+    })
+    console.log("📸 Snapshot do layout capturado")
+  } catch (err) {
+    console.log("⚠️ Falha ao capturar snapshot", err)
+  }
+
+  // 2️⃣ Análise (Vision)
+  const visionResult = Vision()
+
+  // 3️⃣ Execução (Command)
   const commandResult = Command({
     actions: visionResult.actions
   })
