@@ -1,34 +1,38 @@
-import { addMemory } from '@/lib/memory';
-
-const PROMPT_VISION_LOCAL = (input: string) => `
-ANÁLISE:
-- Pedido recebido: "${input}"
-- Status do sistema: estável
-
-RISCOS:
-- Nenhum risco crítico identificado
-
-PLANO SUGERIDO:
-- Validar visualmente o layout
-- Priorizar ajustes de UX
-- Encaminhar para Command após validação
-`;
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-  const { input } = await req.json();
+  try {
+    const body = await req.json();
+    const { command } = body;
 
-  // 🔍 Análise local (sem OpenAI)
-  const analysis = PROMPT_VISION_LOCAL(input);
+    // Simulação de análise inteligente da IA Vision
+    const visionResult = {
+      type: "vision_analysis",
+      received_command: command,
+      summary: "Layout futurista identificado com foco em IA centralizada.",
+      analysis: {
+        strengths: [
+          "Identidade visual forte",
+          "Background futurista coerente",
+          "Separação clara entre IA Central e Vision"
+        ],
+        improvements: [
+          "Aumentar contraste de textos longos",
+          "Padronizar tamanho de botões",
+          "Criar grid central para módulos futuros"
+        ]
+      },
+      next_action: "ui_refactor_suggestions"
+    };
 
-  // 🧠 GRAVA NA MEMÓRIA AUTOMATICAMENTE
-  addMemory({
-    type: 'vision',
-    content: analysis,
-  });
-
-  return new Response(analysis, {
-    headers: {
-      'Content-Type': 'text/plain; charset=utf-8',
-    },
-  });
+    return NextResponse.json(visionResult);
+  } catch (error) {
+    return NextResponse.json(
+      {
+        error: "Erro na IA Vision",
+        details: String(error)
+      },
+      { status: 500 }
+    );
+  }
 }

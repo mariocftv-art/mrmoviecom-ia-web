@@ -2,93 +2,133 @@
 
 import { useState } from "react";
 
-type Message = {
-  role: "user" | "system";
-  content: string;
-};
+export default function IAPage() {
+  const [command, setCommand] = useState("");
+  const [response, setResponse] = useState("");
 
-export default function IACentralPage() {
-  const [input, setInput] = useState("");
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: "system",
-      content:
-        "Command, use o contexto do Vision e execute: Definir arquitetura base da MRMoviecom · Registrar módulos principais · Preparar roadmap técnico inicial",
-    },
-  ]);
-  const [loading, setLoading] = useState(false);
-
-  function addMessage(role: Message["role"], content: string) {
-    setMessages((prev) => [...prev, { role, content }]);
-  }
-
-  async function handleSend() {
-    if (!input.trim() || loading) return;
-
-    const command = input.trim();
-    setInput("");
-    setLoading(true);
-
-    // mostra o que o usuário digitou
-    addMessage("user", command);
-
-    try {
-      const res = await fetch("/api/command", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          action: command,
-        }),
-      });
-
-      const data = await res.json();
-
-      // MOSTRA A RESPOSTA REAL DO COMMAND
-      if (data?.output) {
-        addMessage("system", data.output);
-      } else {
-        addMessage(
-          "system",
-          "⚠️ Command executado, mas não retornou output."
-        );
-      }
-    } catch (err) {
-      addMessage(
-        "system",
-        "❌ Erro ao executar o Command. Verifique o backend."
-      );
-    } finally {
-      setLoading(false);
-    }
+  function handleSubmit() {
+    if (!command.trim()) return;
+    setResponse("IA Central decidiu usar IA Vision.");
   }
 
   return (
-    <main style={{ padding: 24 }}>
-      <h1>IA Central</h1>
+    <main style={{ minHeight: "100vh", padding: "60px", color: "#fff" }}>
+      {/* TÍTULO */}
+      <h1
+        style={{
+          fontSize: "52px",
+          fontWeight: 900,
+          color: "#00f0ff",
+          textShadow: "0 0 25px rgba(0,240,255,.7)",
+          marginBottom: 12,
+        }}
+      >
+        IA CENTRAL
+      </h1>
 
-      <div style={{ marginTop: 16, marginBottom: 16 }}>
-        {messages.map((msg, i) => (
-          <div key={i} style={{ marginBottom: 8 }}>
-            <strong>{msg.role === "user" ? "🧠 Você" : "⚙️ Command"}:</strong>
-            <pre style={{ whiteSpace: "pre-wrap", marginTop: 4 }}>
-              {msg.content}
-            </pre>
-          </div>
-        ))}
-      </div>
+      <p style={{ opacity: 0.85, marginBottom: 28 }}>
+        Execute ações usando o contexto da Vision. A IA Central decide,
+        orquestra e responde.
+      </p>
 
-      <div>
+      {/* INPUT */}
+      <div style={{ display: "flex", gap: 14, marginBottom: 32 }}>
         <input
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Digite um comando..."
-          style={{ width: 300, marginRight: 8 }}
-          disabled={loading}
+          value={command}
+          onChange={(e) => setCommand(e.target.value)}
+          placeholder="analisar layout da MRMoviecom"
+          style={{
+            width: 460,
+            height: 52,
+            padding: "0 18px",
+            borderRadius: 12,
+            background: "rgba(0,0,0,.55)",
+            border: "1px solid rgba(0,240,255,.4)",
+            color: "#fff",
+          }}
         />
-        <button onClick={handleSend} disabled={loading}>
-          {loading ? "Executando..." : "Enviar"}
-        </button>
+        <button onClick={handleSubmit}>Enviar</button>
       </div>
+
+      {/* RESPOSTA */}
+      {response && (
+        <div
+          style={{
+            maxWidth: 520,
+            marginBottom: 40,
+            padding: 20,
+            borderRadius: 14,
+            background: "rgba(0,0,0,.6)",
+            border: "1px solid rgba(0,240,255,.3)",
+          }}
+        >
+          <strong>Resposta:</strong>
+          <p style={{ marginTop: 8 }}>{response}</p>
+        </div>
+      )}
+
+      {/* ================= GRID CENTRAL ================= */}
+      <section>
+        <h2
+          style={{
+            fontSize: 28,
+            marginBottom: 20,
+            color: "#00f0ff",
+          }}
+        >
+          Módulos IA
+        </h2>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+            gap: 24,
+          }}
+        >
+          {[
+            {
+              title: "IA Vision",
+              desc: "Analisa layouts, imagens e estruturas",
+            },
+            {
+              title: "Orquestrador",
+              desc: "Decide qual IA executar",
+            },
+            {
+              title: "Loja IA",
+              desc: "Módulos inteligentes sob demanda",
+            },
+            {
+              title: "Automações",
+              desc: "Execução automática de ações",
+            },
+          ].map((item) => (
+            <div
+              key={item.title}
+              style={{
+                padding: 24,
+                borderRadius: 18,
+                background:
+                  "linear-gradient(180deg, rgba(0,0,0,.65), rgba(0,0,0,.35))",
+                border: "1px solid rgba(0,240,255,.25)",
+                boxShadow: "0 0 20px rgba(0,240,255,.15)",
+              }}
+            >
+              <h3
+                style={{
+                  color: "#00f0ff",
+                  marginBottom: 10,
+                  fontSize: 20,
+                }}
+              >
+                {item.title}
+              </h3>
+              <p style={{ opacity: 0.85 }}>{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
     </main>
   );
 }

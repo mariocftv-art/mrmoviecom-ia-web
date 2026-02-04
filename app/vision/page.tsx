@@ -1,64 +1,113 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function VisionPage() {
-  const [input, setInput] = useState('');
-  const [output, setOutput] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [input, setInput] = useState("");
+  const [result, setResult] = useState<string | null>(null);
 
-  async function analisar() {
-    if (!input) return;
-
-    setLoading(true);
-    setOutput('Analisando com Vision...\n');
-
-    try {
-      const res = await fetch('/api/vision', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ input }),
-      });
-
-      const text = await res.text();
-      setOutput(text);
-    } catch (err) {
-      setOutput('Erro ao analisar. Verifique a API do Vision.');
-    } finally {
-      setLoading(false);
+  function handleAnalyze() {
+    if (!input.trim()) {
+      alert("Digite algo para a IA Vision analisar");
+      return;
     }
+
+    // MOCK DE ANÁLISE (seguro)
+    setResult(
+      `🔍 Análise Vision\n\nInterpretei o pedido:\n"${input}"\n\nNenhuma ação executada. Apenas análise visual e estrutural.`
+    );
   }
 
   return (
-    <div className="p-6 max-w-4xl mx-auto space-y-4">
-      <h1 className="text-2xl font-bold">Vision</h1>
+    <main
+      style={{
+        minHeight: "100vh",
+        padding: "60px",
+        color: "#ffffff",
+      }}
+    >
+      {/* TÍTULO */}
+      <h1
+        style={{
+          fontSize: "52px",
+          fontWeight: 900,
+          letterSpacing: "3px",
+          color: "#00f0ff",
+          textShadow: "0 0 25px rgba(0,240,255,0.7)",
+          marginBottom: "16px",
+        }}
+      >
+        IA VISION
+      </h1>
 
-      <p className="text-zinc-400">
-        Módulo de análise e planejamento. Nenhuma ação é executada aqui.
+      {/* DESCRIÇÃO */}
+      <p
+        style={{
+          maxWidth: "760px",
+          fontSize: "16px",
+          lineHeight: "1.6",
+          color: "rgba(255,255,255,0.85)",
+          marginBottom: "28px",
+        }}
+      >
+        Analisa layouts, imagens, fluxos e estruturas.  
+        Nenhuma ação é executada — apenas planejamento inteligente.
       </p>
 
-      <textarea
-        className="w-full h-32 bg-zinc-900 p-3 rounded"
-        placeholder="Descreva o que a IA deve analisar…"
-        value={input}
-        onChange={e => setInput(e.target.value)}
-      />
+      {/* INPUT + BOTÃO */}
+      <div style={{ display: "flex", gap: "14px" }}>
+        <input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Descreva o que a IA Vision deve analisar..."
+          style={{
+            width: "520px",
+            height: "52px",
+            padding: "0 18px",
+            fontSize: "16px",
+            borderRadius: "12px",
+            border: "1px solid rgba(0,240,255,0.45)",
+            background: "rgba(0,0,0,0.55)",
+            color: "#ffffff",
+            outline: "none",
+            boxShadow: "0 0 25px rgba(0,240,255,0.18)",
+          }}
+        />
 
-      <button
-        onClick={analisar}
-        disabled={loading}
-        className="bg-cyan-600 px-4 py-2 rounded disabled:opacity-50"
-      >
-        {loading ? 'Analisando…' : 'Analisar'}
-      </button>
+        <button
+          onClick={handleAnalyze}
+          style={{
+            height: "52px",
+            padding: "0 28px",
+            fontSize: "15px",
+            fontWeight: 700,
+            borderRadius: "12px",
+            border: "none",
+            cursor: "pointer",
+            background: "linear-gradient(135deg, #00f0ff, #0077ff)",
+            color: "#000",
+            boxShadow: "0 0 25px rgba(0,240,255,0.45)",
+          }}
+        >
+          Analisar
+        </button>
+      </div>
 
-      {output && (
-        <pre className="bg-zinc-950 p-4 rounded whitespace-pre-wrap border border-zinc-800">
-          {output}
+      {/* RESULTADO */}
+      {result && (
+        <pre
+          style={{
+            marginTop: "32px",
+            padding: "24px",
+            borderRadius: "16px",
+            background: "rgba(0,0,0,0.65)",
+            border: "1px solid rgba(0,240,255,0.35)",
+            whiteSpace: "pre-wrap",
+          }}
+        >
+          {result}
         </pre>
       )}
-    </div>
+    </main>
   );
 }

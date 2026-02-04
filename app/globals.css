@@ -22,3 +22,118 @@
   animation: bgPulse 18s ease-in-out infinite;
   will-change: background-size, filter;
 }
+/* ================================
+   PASSO 7.1 — CONTRASTE DE TEXTOS
+   IA Central / IA Vision
+   ================================ */
+
+/* Textos longos explicativos */
+.ia-text,
+.ia-description,
+.ia-response,
+.vision-response,
+.long-text {
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 16px;
+  line-height: 1.75;
+  letter-spacing: 0.2px;
+  text-shadow: 0 0 6px rgba(0, 240, 255, 0.15);
+}
+
+/* Blocos de resposta da IA */
+.ia-box,
+.response-box,
+.analysis-box {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0.75)
+  );
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  backdrop-filter: blur(6px);
+}
+
+/* Listas dentro das respostas */
+.ia-response ul,
+.vision-response ul {
+  margin-top: 8px;
+  padding-left: 18px;
+}
+
+.ia-response li,
+.vision-response li {
+  margin-bottom: 6px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Destaque de subtítulos dentro do texto */
+.ia-response strong,
+.vision-response strong {
+  color: #00f0ff;
+  font-weight: 700;
+}
+/* ================================
+   PASSO 7.2 — PADRÃO DE BOTÕES
+   IA Central / IA Vision
+   ================================ */
+
+.btn-ia,
+button {
+  height: 52px;
+  min-width: 120px;
+  padding: 0 26px;
+
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+
+  border-radius: 12px;
+  border: 1px solid rgba(0, 240, 255, 0.45);
+
+  background: linear-gradient(
+    135deg,
+    #00f0ff,
+    #0077ff
+  );
+
+  color: #000;
+  cursor: pointer;
+
+  box-shadow:
+    0 0 18px rgba(0, 240, 255, 0.55),
+    inset 0 0 8px rgba(255, 255, 255, 0.25);
+
+  transition: all 0.25s ease;
+}
+
+/* Hover */
+.btn-ia:hover,
+button:hover {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow:
+    0 0 28px rgba(0, 240, 255, 0.85),
+    inset 0 0 10px rgba(255, 255, 255, 0.35);
+}
+
+/* Clique */
+.btn-ia:active,
+button:active {
+  transform: scale(0.98);
+  box-shadow:
+    0 0 14px rgba(0, 240, 255, 0.6);
+}
+
+/* Estado desabilitado / loading */
+button:disabled,
+.btn-ia:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Botão secundário (se precisar no futuro) */
+.btn-ia-secondary {
+  background: rgba(0, 0, 0, 0.65);
+  color: #00f0ff;
+  border: 1px solid rgba(0, 240, 255, 0.35);
+}
