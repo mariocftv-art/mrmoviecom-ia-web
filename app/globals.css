@@ -1,25 +1,24 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* ================================
+   FUNDO FUTURISTA – ANIMAÇÃO BASE
+   ================================ */
 
-/* Opcional: define um fundo padrão para a tela toda */
-body {
-  background-color: black;
-  color: white;
-}.ia-background {
-  min-height: 100vh;
-  background-image:
-    radial-gradient(
-      circle at center,
-      rgba(0, 255, 255, 0.18),
-      rgba(0, 0, 0, 0.95) 70%
-    ),
-    linear-gradient(
-      135deg,
-      #050b14,
-      #020409
-    );
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+@keyframes bgPulse {
+  0% {
+    background-size: 100% 100%;
+    filter: brightness(0.95) saturate(1);
+  }
+  50% {
+    background-size: 105% 105%;
+    filter: brightness(1.05) saturate(1.1);
+  }
+  100% {
+    background-size: 100% 100%;
+    filter: brightness(0.95) saturate(1);
+  }
+}
+
+/* classe que anima o fundo */
+.bg-animated {
+  animation: bgPulse 18s ease-in-out infinite;
+  will-change: background-size, filter;
 }
