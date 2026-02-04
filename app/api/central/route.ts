@@ -1,50 +1,46 @@
 import { NextResponse } from "next/server";
+import OpenAI from "openai";
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
 export async function POST(req: Request) {
   try {
-    const { command } = await req.json();
+    const { prompt } = await req.json();
 
-    if (!command || !command.trim()) {
-      return NextResponse.json({
-        response: "Nenhum comando recebido.",
-      });
-    }
-
-    // 🧠 ORQUESTRADOR (decisão simples por enquanto)
-    const lower = command.toLowerCase();
-
-    // 👉 Se for algo visual / layout → Vision
-    if (
-      lower.includes("layout") ||
-      lower.includes("imagem") ||
-      lower.includes("design") ||
-      lower.includes("visual")
-    ) {
-      // chama IA Vision
-      const visionRes = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/vision`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ command }),
-        }
+    if (!prompt) {
+      return NextResponse.json(
+        { error: "Prompt não enviado" },
+        { status: 400 }
       );
-
-      const visionData = await visionRes.json();
-
-      return NextResponse.json({
-        response: `🧠 IA Central decidiu usar IA Vision.\n\n${visionData.response}`,
-      });
     }
 
-    // 👉 Caso contrário: resposta padrão da Central
-    return NextResponse.json({
-      response:
-        "🧠 IA Central recebeu o comando, mas ainda não há IA especializada configurada para este tipo de ação.",
+    const completion = await openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [
+        {
+          role: "system",
+          content:
+            "Você é a IA Central da MRMoviecom. Analise layouts, sugira melhorias visuais e arquiteturais.",
+        },
+        {
+          role: "user",
+          content: prompt,
+        },
+      ],
+      temperature: 0.4,
     });
+
+    const response =
+      completion.choices[0]?.message?.content ||
+      "Sem resposta da IA.";
+
+    return NextResponse.json({ response });
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
-      { response: "Erro interno na IA Central." },
+      { error: "Erro ao chamar OpenAI" },
       { status: 500 }
     );
   }
